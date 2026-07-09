@@ -3,6 +3,7 @@ class CategoriaRepository {
     guardar(categoria) {}
     obtenerPorId(id) {}
     obtenerTodos() {}
+    buscarPorNombre(nombre) {}
 
 }
 
