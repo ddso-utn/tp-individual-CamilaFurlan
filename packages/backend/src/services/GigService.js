@@ -1,6 +1,7 @@
 import Gig from "../domain/entities/Gig.js";
 import Opinion from "../domain/entities/Opinion.js";
 import Categoria from "../domain/entities/Categoria.js";
+import Paquete from "../domain/entities/Paquete.js"
 import UsuarioRepository from "../repositories/UsuarioRepository.js";
 import GigRepository from "../repositories/GigRepository.js";
 import CategoriaRepository from "../repositories/CategoriaRepository.js";
@@ -8,39 +9,58 @@ import { randomUUID } from "crypto";
 
 class GigService{
 
-    constructor(gigRepository, categoriaRepository) {
+    constructor(gigRepository, categoriaRepository, usuarioRepository) {
         this.gigRepository = gigRepository;
         this.categoriaRepository = categoriaRepository;
+        this.usuarioRepository = usuarioRepository;
     }
     
-    async crearGig(vendedorId, categoriaId, nombre, descripcion, paquetes) {
+    async crearGig(payload) {
 
-        const vendedor = await this.usuarioRepository.buscarPorId(vendedorId);
-        const categoria = await this.categoriaRepository.obtenerPorId(categoriaId);
+        const gig = this.#crearEntidadGig(payload);
+        await this.gigRepository.guardar(gig);
+
+        return gig;
+    }
+
+    #crearEntidadGig(payload) {
+
+        const {
+            vendedorId,
+            categoriaId,
+            nombre,
+            descripcion,
+            paquetes
+        } = payload;
+
+        const vendedor = this.#buscarUsuario(vendedorId);
+        const categoria = this.#buscarCategoria(categoriaId);
 
         const gig = new Gig(
-            randomUUID,
+            randomUUID(),
             nombre,
             descripcion,
             categoria,
             vendedor
         );
-        
+
         paquetes.forEach(paqueteDTO => {
-
-            const paquete = new Paquete(
-                randomUUID(),
-                paqueteDTO.nombre,
-                paqueteDTO.descripcion,
-                paqueteDTO.precio,
-                paqueteDTO.diasEntrega
+            gig.agregarPaquete(
+                this.#crearPaquete(paqueteDTO)
             );
-
-            gig.agregarPaquete(paquete);
         });
 
-        await this.gigRepository.guardar(gig);
         return gig;
+    }
+    #crearPaquete(payload) {
+
+        return new Paquete(
+            randomUUID(),
+            payload.nombre,
+            payload.descripcion,
+            payload.precio,
+            payload.diasEntrega
+        );
     }
 
     async obtenerTodos() {
@@ -73,15 +93,6 @@ class GigService{
     //ordenarPorPuntaje(){}
 
     //ordenarPorFecha(){}
-
-    async agregarOpinion(gigId, nuevaOpinion) {
-
-        const gig = await this.gigRepository.buscarPorId(gigId);
-        gig.agregarOpinion(nuevaOpinion);
-
-        await this.gigRepository.actualizar(gig);
-        return nuevaOpinion;
-    }
 
 }
 
