@@ -22,23 +22,40 @@ class Pedido {
         this.fechaCreacion = new Date();
         this.fechaEntrega = fechaEntrega;
         this.mensajes = [];
+        this.estaCalificado = false;
 
     }
 
 
     cancelar(){
+
+        if(this.estado === EstadoPedido.ENTREGADO || this.estado === EstadoPedido.CANCELADO){
+            throw new Error("No se puede cancelar un pedido que ya ha sido entregado o cancelado.");
+        }
         this.estado = EstadoPedido.CANCELADO;
     };
 
     marcarEnProgreso(){
+        if(this.estado !== EstadoPedido.PENDIENTE){
+            throw new Error("Solo se puede marcar EN PROGRESO un pedido que esté en estado PENDIENTE.");
+        }
         this.estado = EstadoPedido.EN_PROGRESO;
     };
 
     entregar(){
+
+        if(this.estado !== EstadoPedido.EN_PROGRESO){
+            throw new Error("Solo se puede entregar un pedido que esté en estado EN PROGRESO.");
+        }
         this.estado = EstadoPedido.ENTREGADO;
     };
 
-    agregarMensaje(){
+    agregarMensaje(mensaje){
         this.mensajes.push(mensaje);
     };
+
+    calificar(){
+        this.estaCalificado = true;
+    }
+
 }

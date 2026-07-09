@@ -8,7 +8,7 @@ class Usuario {
         this.favoritos = [];
     }
 
-    agregarFavorito(){
+    agregarFavorito(gig){
         this.favoritos.push(gig);
     };
     quitarFavorito(gig){

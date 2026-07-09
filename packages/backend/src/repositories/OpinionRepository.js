@@ -1,7 +1,8 @@
 class OpinionRepository {
 
     guardar(opinion){}
-    buscarPorGig(gig){}
+    buscarPorGig(gigId){}
+    buscarPorCliente(){}
 
 }
 

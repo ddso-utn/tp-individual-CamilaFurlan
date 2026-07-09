@@ -17,6 +17,7 @@ class Gig {
         this.multimedia = [];
         this.vendedor = vendedor;
         this.fechaPublicacion = fechaPublicacion;
+        this.opiniones = [];
 
     }
 
@@ -26,6 +27,10 @@ class Gig {
 
     agregarMultimedia(multimedia) {
         this.multimedia.push(multimedia);
+    }
+
+    agregarOpinion(opinion) {
+        this.opiniones.push(opinion);
     }
 
 }

@@ -29,4 +29,11 @@ class GigRepositoryMemoria extends GigRepository {
         return this.gigs.filter(gig => gig.vendedor === usuario);
     }
 
+    actualizar(gig) {
+        const index = this.gigs.findIndex(g => g.id === gig.id);
+        if (index !== -1) {
+            this.gigs[index] = gig;
+        }
+    }
+
 }

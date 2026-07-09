@@ -6,6 +6,7 @@ class UsuarioRepository {
 
     obtenerTodos() {}
 
+    actualizar(usuario) {}
 }
 
 export default UsuarioRepository;
