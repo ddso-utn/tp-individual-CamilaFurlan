@@ -36,12 +36,13 @@ class PedidoService {
 
         this.#registrarCambioEstadoPedido(pedido, cliente);
 
-        return nuevoPedido;
+        return pedido;
     }
 
     async cancelarPedido(pedidoId, usuarioId) {
         const pedido = await this.pedidoRepository.buscarPorId(pedidoId);
         const usuario = await this.usuarioRepository.buscarPorId(usuarioId);
+
         pedido.cancelar();
         await this.pedidoRepository.actualizar(pedido);
         
@@ -51,6 +52,8 @@ class PedidoService {
     async marcarEnProgreso(pedidoId, usuarioId) {
         const pedido = await this.pedidoRepository.buscarPorId(pedidoId);
         const usuario = await this.usuarioRepository.buscarPorId(usuarioId);
+
+        pedido.esVendedor(usuario);
         pedido.marcarEnProgreso();
         await this.pedidoRepository.actualizar(pedido);
         
@@ -60,6 +63,8 @@ class PedidoService {
     async entregarPedido(pedidoId, usuarioId) {
         const pedido = await this.pedidoRepository.buscarPorId(pedidoId);
         const usuario = await this.usuarioRepository.buscarPorId(usuarioId);
+
+        pedido.esVendedor(usuario);
         pedido.entregar();
         await this.pedidoRepository.actualizar(pedido);
         
@@ -90,6 +95,7 @@ class PedidoService {
         const pedido = await this.pedidoRepository.buscarPorId(pedidoId);
         const usuario = await this.usuarioRepository.buscarPorId(usuarioId);
 
+        pedido.esCliente(usuario);
         pedido.sePuedeCalificar();
 
         const opinion = new Opinion(

@@ -67,4 +67,14 @@ class Pedido {
         }
     }
 
+    esCliente(usuario){
+        if(this.cliente.id !== usuario.id){
+            throw new Error("El usuario no es el cliente de este pedido.");
+        }
+    }
+    esVendedor(usuario){
+        if(this.gig.vendedor.id !== usuario.id){
+            throw new Error("El usuario no es el vendedor de este pedido.");
+        }
+    }
 }
