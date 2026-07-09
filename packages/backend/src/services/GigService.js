@@ -12,16 +12,21 @@ class GigService{
         this.categoriaRepository = categoriaRepository;
     }
     
-    async crearGig(nuevoGig) {
+    async crearGig(vendedorId, categoriaId, nombre, descripcion, paquetes) {
+
+        const vendedor = await this.usuarioRepository.buscarPorId(vendedorId);
+        const categoria = await this.categoriaRepository.obtenerPorId(categoriaId);
+        const gigId = await this.gigRepository.obtenerSiguienteId();
+
 
         const gig = new Gig(
-            nuevoGig.id,
-            nuevoGig.nombre,
-            nuevoGig.descripcion,
-            nuevoGig.categoria,
-            nuevoGig.vendedor,
-            nuevoGig.fechaPublicacion
+            gigId,
+            nombre,
+            descripcion,
+            categoria,
+            vendedor
         );
+        paquetes.forEach(paquete => gig.agregarPaquete(paquete));
 
         await this.gigRepository.guardar(gig);
         return gig;

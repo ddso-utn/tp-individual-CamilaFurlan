@@ -6,7 +6,6 @@ class Gig {
         descripcion,
         categoria,
         vendedor,
-        fechaPublicacion
     ) {
 
         this.id = id;
@@ -16,7 +15,7 @@ class Gig {
         this.paquetes = [];
         this.multimedia = [];
         this.vendedor = vendedor;
-        this.fechaPublicacion = fechaPublicacion;
+        this.fechaPublicacion = new Date();
         this.opiniones = [];
 
     }
