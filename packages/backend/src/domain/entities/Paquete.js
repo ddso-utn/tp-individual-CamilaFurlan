@@ -1,4 +1,4 @@
-class Paquete {
+export class Paquete {
 
     constructor(id, nombre, descripcion, precio, diasEntrega) {
         this.id = id;

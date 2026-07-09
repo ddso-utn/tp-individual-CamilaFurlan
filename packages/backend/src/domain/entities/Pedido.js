@@ -1,6 +1,6 @@
 import { EstadoPedido } from "../enums/EstadoPedido.js";
 
-class Pedido {
+export class Pedido {
 
     constructor(
         id,

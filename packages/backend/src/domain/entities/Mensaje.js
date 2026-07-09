@@ -1,4 +1,4 @@
-class Mensaje {
+export class Mensaje {
 
     constructor(id, autor, mensaje) {
 

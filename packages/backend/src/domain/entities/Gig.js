@@ -1,4 +1,4 @@
-class Gig {
+export class Gig {
 
     constructor(
         id,

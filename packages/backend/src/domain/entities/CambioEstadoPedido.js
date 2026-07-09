@@ -1,4 +1,4 @@
-class CambioEstadoPedido {
+export class CambioEstadoPedido {
 
     constructor(pedido, estadoPedido, usuario) {
 

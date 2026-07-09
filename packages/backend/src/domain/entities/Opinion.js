@@ -1,4 +1,4 @@
-class Opinion {
+export class Opinion {
 
     constructor(cliente, gig, detalle, puntuacion) {
         this.cliente = cliente;
