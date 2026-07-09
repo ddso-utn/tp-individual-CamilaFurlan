@@ -1,34 +1,42 @@
 import Pedido from "../domain/entities/Pedido.js";
-import CambioEstadoPedido from "../domain/entities/CambioEstadoPedido.js";
 import { EstadoPedido } from "../domain/enums/EstadoPedido.js"; 
+
+import CambioEstadoPedido from "../domain/entities/CambioEstadoPedido.js";
 import UsuarioRepository from "../repositories/UsuarioRepository.js";
 import PedidoRepository from "../repositories/PedidoRepository.js";
+import GigRepository from "../repositories/GigRepository.js";
 
 class PedidoService {
-    constructor(pedidoRepository, cambioEstadoPedidoRepository) {
+    constructor(pedidoRepository, cambioEstadoPedidoRepository, usuarioRepository, gigRepository) {
         this.pedidoRepository = pedidoRepository;
         this.cambioEstadoPedidoRepository = cambioEstadoPedidoRepository;
+        this.usuarioRepository = usuarioRepository;
+        this.gigRepository = gigRepository;
     }
 
-    async crearPedido(clienteId, gigId, paqueteId, requerimientos, fechaEntrega) {
+    async crearPedido(clienteId, gigId, paqueteId, requerimientos) {
 
         const cliente = await this.usuarioRepository.buscarPorId(clienteId);
         const gig = await this.gigRepository.buscarPorId(gigId);
-        const paquete = await this.gigRepository.obtenerPaquetes(gigId).then(
-            paquetes => paquetes.find(p => p.id === paqueteId));
+        const paquete = await this.gigRepository.obtenerPaquetePorId(gigId, paqueteId);
         const id = await this.pedidoRepository.generarId();
+        const fechaEntrega = await paquete.calcularFechaEntrega(new Date());
 
         const pedido = new Pedido(
-            null,
+            id,
             cliente,
             gig,
             paquete,
-            null,
+            paquete.precio,
             requerimientos,
             fechaEntrega
         );
 
         await this.pedidoRepository.guardar(pedido);
+
+        const cambioEstadoPedido = new CambioEstadoPedido(pedido, pedido.estado, cliente);
+        this.cambioEstadoPedidoRepository.guardar(cambioEstadoPedido);
+
         return nuevoPedido;
     }
 

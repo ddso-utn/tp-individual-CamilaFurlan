@@ -17,7 +17,7 @@ class Pedido {
         this.gig = gig;
         this.paquete = paquete;
         this.total = total;
-        this.estado = EstadoPedido.CONFIRMADO;
+        this.estado = EstadoPedido.PENDIENTE;
         this.requerimientos = requerimientos;
         this.fechaCreacion = new Date();
         this.fechaEntrega = fechaEntrega;

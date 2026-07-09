@@ -9,8 +9,16 @@ class GigRepositoryMemoria extends GigRepository {
         this.gigs.push(gig);
     }
 
-    buscarPorId(id) {
-        return this.gigs.find(gig => gig.id === id);
+    buscarPorId(gigId) {
+        if(!gigId) {
+            throw new Error("El ID del gig no puede ser nulo o indefinido.");
+        }
+
+        const gig = this.gigs.find(g => g.id === gigId);
+        if (!gig) {
+            throw new Error(`No se encontró ningún gig con el ID: ${gigId}`);
+        }
+        return gig;
     }
 
     obtenerTodos() {
@@ -34,6 +42,20 @@ class GigRepositoryMemoria extends GigRepository {
         if (index !== -1) {
             this.gigs[index] = gig;
         }
+    }
+
+    obtenerPaquetes(gigId) {
+        const gig = this.buscarPorId(gigId);
+        return gig.paquetes;
+    }
+
+    obtenerPaquetePorId(gigId, paqueteId) {
+        const gig = this.buscarPorId(gigId);
+        const paquete = gig.paquetes.find(p => p.id === paqueteId);
+        if (!paquete) {
+            throw new Error(`No se encontró ningún paquete con el ID: ${paqueteId} para el gig con ID: ${gigId}`);
+        }
+        return paquete;
     }
 
 }

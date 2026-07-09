@@ -13,6 +13,10 @@ class GigRepository {
     buscarPorVendedor(usuario){}
     
     actualizar(gig){}
+
+    obtenerPaquetes(gigId) {}
+    obtenerPaquetePorId(gigId, paqueteId) {}
+    
 }
 
 export default GigRepository;

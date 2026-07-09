@@ -8,4 +8,10 @@ class Paquete {
         this.diasEntrega = diasEntrega;
     }
 
+    calcularFechaEntrega(fechaActual) {
+        const fechaEntrega = new Date(fechaActual);
+        fechaEntrega.setDate(fechaEntrega.getDate() + this.diasEntrega);
+        return fechaEntrega;
+    }
+
 }
