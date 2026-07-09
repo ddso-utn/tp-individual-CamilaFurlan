@@ -12,7 +12,11 @@ class UsuarioRepositoryMemoria extends UsuarioRepository {
     }
 
     buscarPorId(id) {
-        return this.usuarios.find(usuario => usuario.id === id);
+        const usuario = this.usuarios.find(usuario => usuario.id === id);
+        if (!usuario) {
+            throw new Error(`Usuario con id ${id} no encontrado.`);
+        }
+        return usuario;
     }
 
     obtenerTodos() {

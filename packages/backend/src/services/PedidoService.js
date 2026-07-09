@@ -46,7 +46,7 @@ class PedidoService {
         pedido.cancelar();
         await this.pedidoRepository.actualizar(pedido);
         
-        new CambioEstadoPedido(pedido, EstadoPedido.CANCELADO, usuario);
+        new CambioEstadoPedido(pedido, pedido.estado, usuario);
         await this.cambioEstadoPedidoRepository.guardar(cambioEstadoPedido);
     }
     
