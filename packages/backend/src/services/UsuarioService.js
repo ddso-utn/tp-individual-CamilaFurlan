@@ -1,6 +1,7 @@
 import Usuario from "../domain/entities/Usuario.js";
 import UsuarioRepository from "../repositories/UsuarioRepository.js";
 import GigRepository from "../repositories/GigRepository.js";
+import {randomUUID} from {crypto}
 
 
 class UsuarioService {
@@ -11,7 +12,7 @@ class UsuarioService {
 
     async crearUsuario(nuevoUsuario) {
         const usuario = new Usuario(
-            nuevoUsuario.id,
+            randomUUID,
             nuevoUsuario.nombre,
             nuevoUsuario.apellido,
         );

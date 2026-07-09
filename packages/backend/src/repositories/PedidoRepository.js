@@ -5,7 +5,7 @@ class PedidoRepository {
     buscarPorGig(gig) {}
     buscarPorVendedor(vendedor) {}
     actualizar(pedido) {}
-    generarId() {}
+
 }
 
 export default PedidoRepository;

@@ -58,8 +58,4 @@ class GigRepositoryMemoria extends GigRepository {
         return paquete;
     }
 
-    obtenerSiguienteId() {
-        return this.gigs.length + 1;
-    }
-
 }

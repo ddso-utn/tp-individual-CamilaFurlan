@@ -4,6 +4,7 @@ import Categoria from "../domain/entities/Categoria.js";
 import UsuarioRepository from "../repositories/UsuarioRepository.js";
 import GigRepository from "../repositories/GigRepository.js";
 import CategoriaRepository from "../repositories/CategoriaRepository.js";
+import { randomUUID } from "crypto";
 
 class GigService{
 
@@ -16,11 +17,9 @@ class GigService{
 
         const vendedor = await this.usuarioRepository.buscarPorId(vendedorId);
         const categoria = await this.categoriaRepository.obtenerPorId(categoriaId);
-        const gigId = await this.gigRepository.obtenerSiguienteId();
-
 
         const gig = new Gig(
-            gigId,
+            randomUUID,
             nombre,
             descripcion,
             categoria,

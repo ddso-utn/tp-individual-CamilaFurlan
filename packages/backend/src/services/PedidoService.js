@@ -5,6 +5,7 @@ import CambioEstadoPedido from "../domain/entities/CambioEstadoPedido.js";
 import UsuarioRepository from "../repositories/UsuarioRepository.js";
 import PedidoRepository from "../repositories/PedidoRepository.js";
 import GigRepository from "../repositories/GigRepository.js";
+import { randomUUID } from "crypto";
 
 class PedidoService {
     constructor(pedidoRepository, cambioEstadoPedidoRepository, usuarioRepository, gigRepository) {
@@ -19,11 +20,10 @@ class PedidoService {
         const cliente = await this.usuarioRepository.buscarPorId(clienteId);
         const gig = await this.gigRepository.buscarPorId(gigId);
         const paquete = await this.gigRepository.obtenerPaquetePorId(gigId, paqueteId);
-        const id = await this.pedidoRepository.generarId();
         const fechaEntrega = await paquete.calcularFechaEntrega(new Date());
 
         const pedido = new Pedido(
-            id,
+            randomUUID,
             cliente,
             gig,
             paquete,

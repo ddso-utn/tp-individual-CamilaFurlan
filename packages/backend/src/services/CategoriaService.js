@@ -1,12 +1,18 @@
+import { Categoria } from "../domain/entities/Categoria";
+import CategoriaRepository from "../repositories/CategoriaRepository";
+import { randomUUID } from "crypto";
+
 class Categoria {
     constructor(categoriaRepository) {
         this.categoriaRepository = categoriaRepository;
     }
     
-    async crearCategoria(nuevaCategoria) {
+    async crearCategoria(nombre, descripcion) {
+
+        #validarSiYaExisteCategoria(nombre);
 
         const categoria = new Categoria(
-            nuevaCategoria.id,
+            randomUUID,
             nuevaCategoria.nombre,
             nuevaCategoria.descripcion
         );
@@ -23,6 +29,13 @@ class Categoria {
         return await this.categoriaRepository.obtenerTodos();
     }
 
+    #validarSiYaExisteCategoria(nombre){
+        const categoria = await this.categoriaRepository.buscarPorNombre(nombre);
+
+        if(categoria){
+            throw new Error ("Ya existe esta categoria");
+        }
+    }
 
 }
 export default Categoria;

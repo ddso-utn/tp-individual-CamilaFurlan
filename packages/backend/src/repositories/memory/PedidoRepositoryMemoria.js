@@ -42,8 +42,4 @@ class PedidoRepositoryMemoria extends PedidoRepository {
             this.pedidos[index] = pedido;
         }
     }
-
-    generarId() {
-        return this.pedidos.length + 1;
-    }
 }
