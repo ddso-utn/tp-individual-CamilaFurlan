@@ -34,8 +34,7 @@ class PedidoService {
 
         await this.pedidoRepository.guardar(pedido);
 
-        const cambioEstadoPedido = new CambioEstadoPedido(pedido, pedido.estado, cliente);
-        this.cambioEstadoPedidoRepository.guardar(cambioEstadoPedido);
+        this.#registrarCambioEstadoPedido(pedido, cliente);
 
         return nuevoPedido;
     }
@@ -46,8 +45,7 @@ class PedidoService {
         pedido.cancelar();
         await this.pedidoRepository.actualizar(pedido);
         
-        new CambioEstadoPedido(pedido, pedido.estado, usuario);
-        await this.cambioEstadoPedidoRepository.guardar(cambioEstadoPedido);
+        registrarCambioEstadoPedido(pedido, usuario);
     }
     
     async marcarEnProgreso(pedidoId, usuarioId) {
@@ -56,20 +54,26 @@ class PedidoService {
         pedido.marcarEnProgreso();
         await this.pedidoRepository.actualizar(pedido);
         
-        new CambioEstadoPedido(pedido, EstadoPedido.EN_PROGRESO, usuario);
-        await this.cambioEstadoPedidoRepository.guardar(cambioEstadoPedido);
+        registrarCambioEstadoPedido(pedido, usuario);
     }
 
-    async entregarPedido(pedidoId, usuario) {
+    async entregarPedido(pedidoId, usuarioId) {
         const pedido = await this.pedidoRepository.buscarPorId(pedidoId);
+        const usuario = await this.usuarioRepository.buscarPorId(usuarioId);
         pedido.entregar();
         await this.pedidoRepository.actualizar(pedido);
         
-        new CambioEstadoPedido(pedido, EstadoPedido.ENTREGADO, usuario);
-        await this.cambioEstadoPedidoRepository.guardar(cambioEstadoPedido);
+        registrarCambioEstadoPedido(pedido, usuario);
     }
 
-    //enviarMensaje(){}
+    async enviarMensaje(pedidoId, usuarioId, mensaje){
+        const pedido = await this.pedidoRepository.buscarPorId(pedidoId);
+        const usuario = await this.usuarioRepository.buscarPorId(usuarioId);
+
+        const nuevoMensaje = new Mensaje(null, usuario, mensaje);
+        pedido.agregarMensaje(nuevoMensaje);
+        await this.pedidoRepository.actualizar(pedido);
+    }
 
     async obtenerPedidosCliente(clienteId){
         const cliente = await this.usuarioRepository.buscarPorId(clienteId);
@@ -86,9 +90,7 @@ class PedidoService {
         const pedido = await this.pedidoRepository.buscarPorId(pedidoId);
         const usuario = await this.usuarioRepository.buscarPorId(usuarioId);
 
-        if(pedido.estaCalificado()){
-            throw new Error("El pedido ya ha sido calificado.");
-        }
+        pedido.sePuedeCalificar();
 
         const opinion = new Opinion(
             null,
@@ -97,11 +99,15 @@ class PedidoService {
             detalle,
             puntuacion
         );
+        await this.OpinionRepository.guardar(opinion);
         
         pedido.calificar();
         await this.pedidoRepository.actualizar(pedido);
-        await this.OpinionRepository.guardar(opinion);
         return opinion;
     }
 
+    #registrarCambioEstadoPedido(pedido, usuario) {
+        const cambioEstadoPedido = new CambioEstadoPedido(pedido, pedido.estado, usuario);
+        this.cambioEstadoPedidoRepository.guardar(cambioEstadoPedido);
+    }
 }

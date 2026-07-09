@@ -1,11 +1,11 @@
 class Mensaje {
 
-    constructor(id, autor, mensaje, fecha) {
+    constructor(id, autor, mensaje) {
 
         this.id = id;
         this.autor = autor;
         this.mensaje = mensaje;
-        this.fecha = fecha;
+        this.fecha = new Date();
 
     }
 

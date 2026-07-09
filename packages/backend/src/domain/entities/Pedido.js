@@ -58,4 +58,13 @@ class Pedido {
         this.estaCalificado = true;
     }
 
+    sePuedeCalificar(){
+        if(this.estado !== EstadoPedido.ENTREGADO){
+            throw new Error("Solo se puede calificar un pedido que esté en estado ENTREGADO.");
+        }
+        if(this.estaCalificado){
+            throw new Error("El pedido ya ha sido calificado.");
+        }
+    }
+
 }
