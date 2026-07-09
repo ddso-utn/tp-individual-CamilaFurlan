@@ -25,7 +25,19 @@ class GigService{
             categoria,
             vendedor
         );
-        paquetes.forEach(paquete => gig.agregarPaquete(paquete));
+        
+        paquetes.forEach(paqueteDTO => {
+
+            const paquete = new Paquete(
+                randomUUID(),
+                paqueteDTO.nombre,
+                paqueteDTO.descripcion,
+                paqueteDTO.precio,
+                paqueteDTO.diasEntrega
+            );
+
+            gig.agregarPaquete(paquete);
+        });
 
         await this.gigRepository.guardar(gig);
         return gig;
