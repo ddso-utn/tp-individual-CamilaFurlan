@@ -2,23 +2,27 @@ import { Categoria } from "../domain/entities/Categoria";
 import CategoriaRepository from "../repositories/CategoriaRepository";
 import { randomUUID } from "crypto";
 
-class Categoria {
+class CategoriaService {
     constructor(categoriaRepository) {
         this.categoriaRepository = categoriaRepository;
     }
     
-    async crearCategoria(nombre, descripcion) {
+    async crearCategoria(payload) {
 
-        #validarSiYaExisteCategoria(nombre);
-
-        const categoria = new Categoria(
-            randomUUID,
-            nuevaCategoria.nombre,
-            nuevaCategoria.descripcion
-        );
-
+        this.#validarSiYaExisteCategoria(payload.nombre);
+        const categoria = this.#crearEntidadCategoria(payload);
         await this.categoriaRepository.guardar(categoria);
+
         return categoria;
+    }
+
+    #crearEntidadCategoria(payload) {
+
+        return new Categoria(
+            randomUUID(),
+            payload.nombre,
+            payload.descripcion
+        );
     }
 
     async obtenerCategoriaPorId(categoriaId) {
@@ -29,7 +33,7 @@ class Categoria {
         return await this.categoriaRepository.obtenerTodos();
     }
 
-    #validarSiYaExisteCategoria(nombre){
+    async #validarSiYaExisteCategoria(nombre){
         const categoria = await this.categoriaRepository.buscarPorNombre(nombre);
 
         if(categoria){
@@ -38,4 +42,4 @@ class Categoria {
     }
 
 }
-export default Categoria;
+export default CategoriaService;
