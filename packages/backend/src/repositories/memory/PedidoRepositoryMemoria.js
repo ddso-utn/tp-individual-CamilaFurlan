@@ -43,4 +43,7 @@ class PedidoRepositoryMemoria extends PedidoRepository {
         }
     }
 
+    generarId() {
+        return this.pedidos.length + 1;
+    }
 }

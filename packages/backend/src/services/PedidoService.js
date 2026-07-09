@@ -99,7 +99,6 @@ class PedidoService {
         pedido.sePuedeCalificar();
 
         const opinion = new Opinion(
-            null,
             usuario,
             pedido.gig,
             detalle,

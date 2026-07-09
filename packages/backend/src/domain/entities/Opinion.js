@@ -1,7 +1,6 @@
 class Opinion {
 
-    constructor(id,cliente, gig, detalle, puntuacion) {
-        this.id = id;
+    constructor(cliente, gig, detalle, puntuacion) {
         this.cliente = cliente;
         this.gig = gig;
         this.detalle = detalle;
