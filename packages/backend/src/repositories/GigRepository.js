@@ -11,6 +11,8 @@ class GigRepository {
     buscarPorTexto(texto){}
     
     buscarPorVendedor(usuario){}
+
+    buscar(filtros){}
     
     actualizar(gig){}
 

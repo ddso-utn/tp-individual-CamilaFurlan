@@ -1,23 +1,19 @@
 import Gig from "../domain/entities/Gig.js";
-import Opinion from "../domain/entities/Opinion.js";
-import Categoria from "../domain/entities/Categoria.js";
-import Paquete from "../domain/entities/Paquete.js"
-import UsuarioRepository from "../repositories/UsuarioRepository.js";
-import GigRepository from "../repositories/GigRepository.js";
-import CategoriaRepository from "../repositories/CategoriaRepository.js";
+import Paquete from "../domain/entities/Paquete.js";
 import { randomUUID } from "crypto";
 
-class GigService{
+class GigService {
 
     constructor(gigRepository, categoriaRepository, usuarioRepository) {
         this.gigRepository = gigRepository;
         this.categoriaRepository = categoriaRepository;
         this.usuarioRepository = usuarioRepository;
     }
-    
+
     async crearGig(payload) {
 
         const gig = this.#crearEntidadGig(payload);
+
         await this.gigRepository.guardar(gig);
 
         return gig;
@@ -52,6 +48,7 @@ class GigService{
 
         return gig;
     }
+
     #crearPaquete(payload) {
 
         return new Paquete(
@@ -66,33 +63,40 @@ class GigService{
     async obtenerTodos() {
         return await this.gigRepository.obtenerTodos();
     }
-    async buscarPorVendedor(vendedorId){
-        const vendedor = await this.usuarioRepository.buscarPorId(vendedorId);
+
+    async buscar(filtros) {
+        return await this.gigRepository.buscar(filtros);
+    }
+
+    async buscarPorVendedor(vendedorId) {
+
+        const vendedor = this.#buscarUsuario(vendedorId);
+
         return await this.gigRepository.buscarPorVendedor(vendedor);
     }
 
-    async buscarPorId(gigId){
+    async buscarPorId(gigId) {
         return await this.gigRepository.buscarPorId(gigId);
-    }
-    
-    async buscarPorTexto(texto){
-        return await this.gigRepository.buscarPorTexto(texto);
-    }
-
-    async buscarPorCategoria(categoriaId){
-        const categoria = await this.categoriaRepository.buscarPorId(categoriaId);
-        return await this.gigRepository.buscarPorCategoria(categoria);
     }
 
     async obtenerPaquetes(gigId) {
-        const gig = await this.gigRepository.buscarPorId(gigId);
+
+        const gig = this.#buscarGig(gigId);
+
         return gig.paquetes;
     }
 
-    //ordenarPorPrecio(){}
-    //ordenarPorPuntaje(){}
+    #buscarUsuario(usuarioId) {
+        return this.usuarioRepository.buscarPorId(usuarioId);
+    }
 
-    //ordenarPorFecha(){}
+    #buscarCategoria(categoriaId) {
+        return this.categoriaRepository.buscarPorId(categoriaId);
+    }
+
+    #buscarGig(gigId) {
+        return this.gigRepository.buscarPorId(gigId);
+    }
 
 }
 

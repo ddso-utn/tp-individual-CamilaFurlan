@@ -37,6 +37,49 @@ class GigRepositoryMemoria extends GigRepository {
         return this.gigs.filter(gig => gig.vendedor === usuario);
     }
 
+    buscar(filtros = {}) {
+
+        let gigs = [...this.gigs];
+
+        if (filtros.texto) {
+            const texto = filtros.texto.toLowerCase();
+
+            gigs = gigs.filter(gig =>
+                gig.nombre.toLowerCase().includes(texto) ||
+                gig.descripcion.toLowerCase().includes(texto)
+            );
+        }
+
+        if (filtros.categoriaId) {
+            gigs = gigs.filter(
+                gig => gig.categoria.id === filtros.categoriaId
+            );
+        }
+
+        switch (filtros.ordenarPor) {
+
+            case "precio":
+                gigs.sort((a, b) =>
+                    a.paquetes[0].precio - b.paquetes[0].precio
+                );
+                break;
+
+            case "puntaje":
+                gigs.sort((a, b) =>
+                    b.obtenerPuntajePromedio() - a.obtenerPuntajePromedio()
+                );
+                break;
+
+            case "fecha":
+                gigs.sort((a, b) =>
+                    b.fechaPublicacion - a.fechaPublicacion
+                );
+                break;
+        }
+
+        return gigs;
+    }fe
+
     actualizar(gig) {
         const index = this.gigs.findIndex(g => g.id === gig.id);
         if (index !== -1) {

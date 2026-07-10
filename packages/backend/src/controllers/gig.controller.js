@@ -15,6 +15,19 @@ export class GigController {
         }
     };
 
+    buscar = async (req, res, next) => {
+        try {
+            const filtros = this.#extraerFiltros(req.query);
+
+            const gigs = await this.gigService.buscar(filtros);
+
+            res.status(200).json(gigs);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+
     obtenerTodos = async (req, res, next) => {
         try {
             const gigs = await this.gigService.obtenerTodos();
@@ -83,6 +96,36 @@ export class GigController {
             next(error);
         }
     };
+
+    #extraerFiltros(query = {}) {
+
+        const filtros = {};
+
+        if (query.texto !== undefined && query.texto.trim() !== "") {
+            filtros.texto = query.texto.trim();
+        }
+
+        if (query.categoriaId !== undefined && query.categoriaId !== "") {
+            filtros.categoriaId = query.categoriaId;
+        }
+
+        if (query.ordenarPor !== undefined && query.ordenarPor !== "") {
+
+            const ordenesValidos = [
+                "precio",
+                "puntaje",
+                "fecha"
+            ];
+
+            if (!ordenesValidos.includes(query.ordenarPor)) {
+                throw new Error("Criterio de orden inválido.");
+            }
+
+            filtros.ordenarPor = query.ordenarPor;
+        }
+
+        return filtros;
+    }
 
 }
 
