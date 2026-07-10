@@ -1,0 +1,245 @@
+/* ==========================================================
+   EXPLORAR
+========================================================== */
+
+.page-actions{
+    display:flex;
+    justify-content:flex-end;
+    padding:0 24px 24px;
+}
+
+/* ==========================================================
+   GIG DETALLE
+========================================================== */
+
+.detail-section{
+    padding:0 24px;
+    margin-bottom:28px;
+}
+
+.detail-section h2{
+    font-size:20px;
+    margin-bottom:16px;
+}
+
+.detail-section p{
+    color:var(--text-secondary);
+    line-height:1.7;
+}
+
+.package-card{
+    width:100%;
+    text-align:left;
+    background:white;
+    border:2px solid var(--border);
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:16px;
+    transition:.2s;
+}
+
+.package-card.selected{
+    border-color:var(--primary);
+    background:#FDF4FF;
+}
+
+.package-card h3{
+    font-size:17px;
+    margin-bottom:8px;
+}
+
+.package-card strong{
+    color:var(--primary);
+    font-size:20px;
+}
+
+.package-card p{
+    margin-bottom:12px;
+}
+
+.package-card small{
+    color:var(--text-secondary);
+}
+
+.requirements{
+    width:100%;
+    min-height:140px;
+    padding:16px;
+    border-radius:20px;
+    border:1px solid var(--border);
+    background:white;
+}
+
+.detail-footer{
+    padding:0 24px 24px;
+}
+
+/* ==========================================================
+   MIS PEDIDOS / MIS ENCARGOS
+========================================================== */
+
+.text-button{
+    color:var(--primary);
+    font-weight:600;
+    padding:8px 0;
+}
+
+.text-button.danger{
+    color:var(--danger);
+}
+
+.modal-backdrop{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.45);
+    display:flex;
+    justify-content:center;
+    align-items:flex-end;
+    z-index:1000;
+}
+
+.chat-modal{
+    width:100%;
+    max-width:480px;
+    height:75vh;
+    background:white;
+    border-radius:28px 28px 0 0;
+    padding:24px;
+    display:flex;
+    flex-direction:column;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:20px;
+}
+
+.modal-header h2{
+    font-size:22px;
+}
+
+.modal-header button{
+    width:36px;
+    height:36px;
+    border-radius:50%;
+    background:#F3F4F6;
+    font-size:18px;
+}
+
+/* ==========================================================
+   NUEVO GIG
+========================================================== */
+
+.form-section{
+    padding:0 24px 28px;
+}
+
+.form-section h2{
+    margin-bottom:18px;
+}
+
+.form-section label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:600;
+}
+
+.form-section input,
+.form-section textarea,
+.form-section select{
+    width:100%;
+    margin-bottom:18px;
+    padding:16px;
+    border:1px solid var(--border);
+    border-radius:18px;
+    background:white;
+    font-family:inherit;
+    font-size:15px;
+}
+
+.package-form{
+    background:white;
+    border-radius:20px;
+    padding:18px;
+    margin-bottom:20px;
+    box-shadow:var(--shadow-sm);
+}
+
+/* ==========================================================
+   MOBILE
+========================================================== */
+
+@media (min-width: 481px){
+
+    .app-content{
+        border-left:1px solid var(--border);
+        border-right:1px solid var(--border);
+        background:var(--background);
+    }
+
+    .bottom-navigation{
+        left:50%;
+        transform:translateX(-50%);
+        max-width:480px;
+        border-left:1px solid var(--border);
+        border-right:1px solid var(--border);
+    }
+
+}
+/* ==========================================================
+   SELECCIÓN DE USUARIO
+========================================================== */
+
+.user-list{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:16px;
+
+    padding:0 24px 24px;
+
+}
+
+.user-card{
+
+    text-align:left;
+
+    background:white;
+
+    border:2px solid var(--border);
+
+    border-radius:20px;
+
+    padding:20px;
+
+    transition:.2s;
+
+    box-shadow:var(--shadow-sm);
+
+}
+
+.user-card.selected{
+
+    border-color:var(--primary);
+
+    background:#FDF4FF;
+
+}
+
+.user-card h3{
+
+    font-size:18px;
+
+    margin-bottom:6px;
+
+}
+
+.user-card p{
+
+    color:var(--text-secondary);
+
+}
