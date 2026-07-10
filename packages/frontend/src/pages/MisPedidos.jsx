@@ -107,11 +107,12 @@ function MisPedidos() {
 
         try {
 
-            await api.calificarPedido(pedido.id,
+            await api.calificarPedido(
+                pedido.id,
                 {
                     usuarioId,
-                    puntaje,
-                    comentario
+                    detalle: comentario,
+                    puntuacion: puntaje
                 }
             );
 

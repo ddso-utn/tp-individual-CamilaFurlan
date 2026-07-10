@@ -140,8 +140,29 @@ export class GigService {
     }
 
     async buscarPorId(gigId) {
+
         const gig = await this.gigRepository.buscarPorId(gigId);
-        return this.#mapearGig(gig);
+
+        const opiniones = await this.opinionRepository.buscarPorGig(gig.id);
+
+        const promedio =
+            opiniones.length > 0
+                ? opiniones.reduce(
+                    (t, o) => t + o.puntuacion,
+                    0
+                ) / opiniones.length
+                : 0;
+
+        return {
+
+            ...gig,
+
+            puntuacionPromedio: promedio,
+
+            cantidadOpiniones: opiniones.length
+
+        };
+
     }
 
     async obtenerPaquetes(gigId) {

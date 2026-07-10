@@ -8,10 +8,11 @@ class OpinionRepositoryMemoria extends OpinionRepository {
     }
 
     guardar(opinion) {
+        console.log(opinion);
         this.opiniones.push(opinion);
     }
     buscarPorGig(gigId){
-        return this.opiniones.filter(opinion => opinion.gig === gigId);
+        return this.opiniones.filter(opinion => opinion.gigId === gigId);
     }
 
 }
