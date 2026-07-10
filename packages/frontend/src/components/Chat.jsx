@@ -1,5 +1,5 @@
-import { useState } from "react";
 import Button from "./Button";
+import { useEffect, useRef, useState } from "react";
 
 function Chat({
     mensajes,
@@ -8,6 +8,19 @@ function Chat({
 }) {
 
     const [texto, setTexto] = useState("");
+    const mensajesRef = useRef(null);
+
+    useEffect(() => {
+
+        mensajesRef.current?.scrollTo({
+
+            top: mensajesRef.current.scrollHeight,
+
+            behavior: "smooth"
+
+        });
+
+    }, [mensajes]);
 
     function enviar() {
 
@@ -25,7 +38,7 @@ function Chat({
 
         <div className="chat-container">
 
-            <div className="chat-messages">
+            <div ref={mensajesRef} className="chat-messages">
 
                 {
 
@@ -88,6 +101,12 @@ function Chat({
                     placeholder="Escribí un mensaje..."
                     value={texto}
                     onChange={(e) => setTexto(e.target.value)}
+
+                    onKeyDown={(e) => {
+                        if (e.key === "Enter") {
+                            enviar();
+                        }
+                    }}
                 />
 
                 <Button
