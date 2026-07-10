@@ -1,8 +1,9 @@
 class Opinion {
 
-    constructor(cliente, gig, detalle, puntuacion) {
+    constructor(id, cliente, gigId, detalle, puntuacion) {
+        this.id =id;
         this.cliente = cliente;
-        this.gig = gig;
+        this.gigId = gigId;
         this.detalle = detalle;
         this.puntuacion = puntuacion;
         this.fecha = new Date();

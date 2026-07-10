@@ -143,7 +143,7 @@ export class PedidoService {
 
     async calificarPedido(pedidoId, payload) {
 
-        const pedido = this.#buscarPedido(pedidoId);
+        const pedido = await this.#buscarPedido(pedidoId);
         pedido.sePuedeCalificar();
         pedido.calificar();
 
@@ -159,8 +159,9 @@ export class PedidoService {
     #crearOpinion(pedido, payload) {
 
         return new Opinion(
+            randomUUID(), 
             pedido.cliente,
-            pedido.gig,
+            pedido.gig.id,
             payload.detalle,
             payload.puntuacion
         );

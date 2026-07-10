@@ -17,6 +17,6 @@ router.get("/:gigId/paquetes", gigController.obtenerPaquetes);
 
 router.put("/:gigId", gigController.actualizar);
 
-router.delete(":/gigId", gigController.eliminar);
+router.delete("/:gigId", gigController.eliminar);
 
 export default router;
