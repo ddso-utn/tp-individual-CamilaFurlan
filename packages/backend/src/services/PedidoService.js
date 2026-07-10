@@ -106,8 +106,8 @@ export class PedidoService {
 
     async enviarMensaje(pedidoId, payload) {
 
-        const pedido =this.#buscarPedido(pedidoId);;
-        const mensaje = this.#crearMensaje(payload);
+        const pedido = await this.#buscarPedido(pedidoId);;
+        const mensaje = await this.#crearMensaje(payload);
 
         pedido.agregarMensaje(mensaje);
         await this.pedidoRepository.actualizar(pedido);
@@ -115,9 +115,9 @@ export class PedidoService {
         return pedido;
     }
 
-    #crearMensaje(payload) {
+    async #crearMensaje(payload) {
 
-    const autor = this.#buscarUsuario(payload.usuarioId);
+    const autor = await this.#buscarUsuario(payload.usuarioId);
 
     return new Mensaje(
         randomUUID(),

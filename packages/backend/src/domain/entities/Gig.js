@@ -45,6 +45,20 @@ class Gig {
         return total / this.opiniones.length;
     }
 
+    actualizar(nombre, descripcion, categoria) {
+
+        this.nombre = nombre;
+        this.descripcion = descripcion;
+        this.categoria = categoria;
+
+    }
+
+    reemplazarPaquetes(paquetes) {
+
+        this.paquetes = paquetes;
+
+    }
+
 }
 
 export default Gig;

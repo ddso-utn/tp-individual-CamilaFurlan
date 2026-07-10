@@ -127,6 +127,29 @@ export class GigController {
         return filtros;
     }
 
+    actualizar = async (req, res, next) => {
+        try {
+            const gig = await this.gigService.actualizar(
+                req.params.gigId,
+                req.body
+            );
+            res.status(200).json(gig);
+
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    eliminar = async (req, res, next) => {
+        try {
+            const gig = await this.gigService.eliminar(
+                req.params.gigId 
+            );
+            res.sendStatus(204);
+        } catch (error) {
+            next(error);
+        }
+    };
 }
 
 export default new GigController();

@@ -94,6 +94,13 @@ class GigRepositoryMemoria extends GigRepository {
         }
     }
 
+    async eliminar(gigId) {
+        this.gigs = this.gigs.filter(
+            gig => gig.id !== gigId
+        );
+
+    }
+
     obtenerPaquetes(gigId) {
         const gig = this.buscarPorId(gigId);
         return gig.paquetes;

@@ -109,5 +109,41 @@ export class GigService {
         return this.gigRepository.buscarPorId(gigId);
     }
 
+    async actualizar(gigId, payload) {
+
+        const gig = await this.#buscarGig(gigId);
+
+        const categoria = await this.#buscarCategoria(
+            payload.categoriaId
+        );
+
+        gig.actualizar(
+            payload.nombre,
+            payload.descripcion,
+            categoria
+        );
+
+        const paquetes = payload.paquetes.map(paquete =>
+
+            this.#crearPaquete(paquete)
+
+        );
+
+        gig.reemplazarPaquetes(paquetes);
+
+        await this.gigRepository.actualizar(gig);
+
+        return gig;
+
+    }
+
+    async eliminar(gigId) {
+
+        const gig = await this.#buscarGig(gigId);
+
+        await this.gigRepository.eliminar(gig.id);
+
+    }
+
 }
 export default GigService;

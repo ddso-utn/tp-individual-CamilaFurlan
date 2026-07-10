@@ -14,7 +14,9 @@ class GigRepository {
 
     buscar(filtros){}
     
-    actualizar(gig){}
+    actualizar(gig) {}
+
+    eliminar(gigId) {}
 
     obtenerPaquetes(gigId) {}
     obtenerPaquetePorId(gigId, paqueteId) {}
