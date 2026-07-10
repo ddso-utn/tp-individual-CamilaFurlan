@@ -104,6 +104,18 @@ export class PedidoController {
         }
     };
 
+    obtenerPedidosVendedor = async (req, res, next) => {
+        try {
+            const pedidos = await this.pedidoService.obtenerPedidosVendedor(
+                req.params.vendedorId
+            );
+
+            res.json(pedidos);
+        } catch (error) {
+            next(error);
+        }
+    };
+
 }
 
 export default new PedidoController();
