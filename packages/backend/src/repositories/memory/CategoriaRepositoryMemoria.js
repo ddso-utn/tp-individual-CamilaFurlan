@@ -1,3 +1,5 @@
+import CategoriaRepository from "../CategoriaRepository.js";
+
 class CategoriaRepositoryMemoria extends CategoriaRepository {
 
     constructor() {
@@ -10,23 +12,31 @@ class CategoriaRepositoryMemoria extends CategoriaRepository {
     }
 
     obtenerPorId(categoriaId) {
-        const categoria = this.categorias.find(categoria => categoria.id === id);
+        const categoria = this.categorias.find(
+            categoria => categoria.id === categoriaId
+        );
 
         if(!categoria){
-            throw new Error (`No se encontró ningún gig con el ID: ${id}`);
+            throw new Error(
+                `No se encontró ninguna categoría con el ID: ${categoriaId}`
+            );
         }
 
-        return categoria
+        return categoria;
     }
+
     obtenerTodos() {
         return this.categorias;
     }
-    buscarPorNombre(nombre) {
-    const nombreNormalizado = nombre.trim().toLowerCase();
 
-    return categoria = this.categorias.find(
-        categoria => categoria.nombre.trim().toLowerCase() === nombreNormalizado);
+    buscarPorNombre(nombre) {
+        const nombreNormalizado = nombre.trim().toLowerCase();
+
+        return this.categorias.find(
+            categoria => categoria.nombre.trim().toLowerCase() === nombreNormalizado
+        );
     }
 
 }
 
+export default CategoriaRepositoryMemoria;

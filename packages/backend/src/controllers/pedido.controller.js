@@ -15,6 +15,15 @@ export class PedidoController {
         }
     };
 
+    obtenerTodos = async (req, res, next) => {
+        try {
+            const pedidos = await this.pedidoService.obtenerTodos();
+            res.status(200).json(pedidos);
+        } catch (error) {
+            next(error);
+        }
+    };
+
     cancelar = async (req, res, next) => {
         try {
             const pedido = await this.pedidoService.cancelarPedido(

@@ -1,3 +1,5 @@
+import OpinionRepository from "../OpinionRepository.js";
+
 class OpinionRepositoryMemoria extends OpinionRepository {
 
     constructor() {
@@ -13,3 +15,5 @@ class OpinionRepositoryMemoria extends OpinionRepository {
     }
 
 }
+
+export default OpinionRepositoryMemoria;

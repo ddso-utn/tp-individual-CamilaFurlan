@@ -1,5 +1,5 @@
 import { Router } from "express";
-import gigController from "../controllers/GigController.js";
+import gigController from "../controllers/gig.controller.js";
 
 const router = Router();
 

@@ -23,4 +23,16 @@ class UsuarioRepositoryMemoria extends UsuarioRepository {
         return this.usuarios;
     }
 
+    actualizar(usuario) {
+        const index = this.usuarios.findIndex(
+            usuarioGuardado => usuarioGuardado.id === usuario.id
+        );
+
+        if (index !== -1) {
+            this.usuarios[index] = usuario;
+        }
+    }
+
 }
+
+export default UsuarioRepositoryMemoria;

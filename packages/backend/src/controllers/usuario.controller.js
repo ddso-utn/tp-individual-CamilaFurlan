@@ -15,6 +15,15 @@ export class UsuarioController {
         }
     };
 
+    obtenerTodos = async (req, res, next) => {
+        try {
+            const usuarios = await this.usuarioService.obtenerTodos();
+            res.status(200).json(usuarios);
+        } catch (error) {
+            next(error);
+        }
+    };
+
     obtenerPorId = async (req, res, next) => {
         try {
             const usuario = await this.usuarioService.obtenerUsuarioPorId(

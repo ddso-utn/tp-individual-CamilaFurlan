@@ -1,8 +1,11 @@
 import Gig from "../domain/entities/Gig.js";
 import Paquete from "../domain/entities/Paquete.js";
+import GigRepositoryMemoria from "../repositories/memory/GigRepositoryMemoria.js";
+import CategoriaRepositoryMemoria from "../repositories/memory/CategoriaRepositoryMemoria.js";
+import UsuarioRepositoryMemoria from "../repositories/memory/UsuarioRepositoryMemoria.js";
 import { randomUUID } from "crypto";
 
-class GigService {
+export class GigService {
 
     constructor(gigRepository, categoriaRepository, usuarioRepository) {
         this.gigRepository = gigRepository;
@@ -91,7 +94,7 @@ class GigService {
     }
 
     #buscarCategoria(categoriaId) {
-        return this.categoriaRepository.buscarPorId(categoriaId);
+        return this.categoriaRepository.obtenerPorId(categoriaId);
     }
 
     #buscarGig(gigId) {
@@ -100,4 +103,14 @@ class GigService {
 
 }
 
-export default GigService;
+const gigRepository = new GigRepositoryMemoria();
+const categoriaRepository = new CategoriaRepositoryMemoria();
+const usuarioRepository = new UsuarioRepositoryMemoria();
+
+const gigService = new GigService(
+    gigRepository,
+    categoriaRepository,
+    usuarioRepository
+);
+
+export default gigService;

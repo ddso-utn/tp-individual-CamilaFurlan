@@ -1,9 +1,10 @@
 import { Router } from "express";
-import pedidoController from "../controllers/PedidoController.js";
+import pedidoController from "../controllers/pedido.controller.js";
 
 const router = Router();
 
 router.post("/", pedidoController.crear);
+router.get("/", pedidoController.obtenerTodos);
 
 router.patch("/:pedidoId/cancelacion", pedidoController.cancelar);
 

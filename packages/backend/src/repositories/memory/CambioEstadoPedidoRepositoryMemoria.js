@@ -1,3 +1,5 @@
+import CambioEstadoPedidoRepository from "../CambioEstadoPedidoRepository.js";
+
 class CambioEstadoPedidoRepositoryMemoria extends CambioEstadoPedidoRepository {
 
     constructor() {

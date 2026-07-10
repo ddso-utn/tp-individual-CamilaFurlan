@@ -1,4 +1,4 @@
-export class Paquete {
+class Paquete {
 
     constructor(id, nombre, descripcion, precio, diasEntrega) {
         this.id = id;
@@ -15,3 +15,4 @@ export class Paquete {
     }
 
 }
+export default Paquete;

@@ -1,20 +1,25 @@
 import Pedido from "../domain/entities/Pedido.js";
 import Mensaje from "../domain/entities/Mensaje.js"
 import Opinion from "../domain/entities/Opinion.js"
-
 import CambioEstadoPedido from "../domain/entities/CambioEstadoPedido.js";
-import UsuarioRepository from "../repositories/UsuarioRepository.js";
-import PedidoRepository from "../repositories/PedidoRepository.js";
-import GigRepository from "../repositories/GigRepository.js";
+import PedidoRepositoryMemoria from "../repositories/memory/PedidoRepositoryMemoria.js";
+import CambioEstadoPedidoRepositoryMemoria from "../repositories/memory/CambioEstadoPedidoRepositoryMemoria.js";
+import UsuarioRepositoryMemoria from "../repositories/memory/UsuarioRepositoryMemoria.js";
+import GigRepositoryMemoria from "../repositories/memory/GigRepositoryMemoria.js";
+import OpinionRepositoryMemoria from "../repositories/memory/OpinionRepositoryMemoria.js";
 import { randomUUID } from "crypto";
 
-class PedidoService {
+export class PedidoService {
     constructor(pedidoRepository, cambioEstadoPedidoRepository, usuarioRepository, gigRepository, opinionRepository) {
         this.pedidoRepository = pedidoRepository;
         this.cambioEstadoPedidoRepository = cambioEstadoPedidoRepository;
         this.usuarioRepository = usuarioRepository;
         this.gigRepository = gigRepository;
         this.opinionRepository = opinionRepository;
+    }
+
+    async obtenerTodos() {
+        return await this.pedidoRepository.obtenerTodos();
     }
 
     async crearPedido(payload) {
@@ -108,11 +113,12 @@ class PedidoService {
 }
     async obtenerPedidosCliente(clienteId){
         const cliente = await this.#buscarUsuario(clienteId);
-        return await this.pedidoRepository.buscarPorCliente(clienteId);
+        return await this.pedidoRepository.buscarPorCliente(cliente);
     }
 
     async obtenerPedidosPorGig(gigId){
-        return await this.pedidoRepository.buscarPorGig(gigId);
+        const gig = await this.#buscarGig(gigId);
+        return await this.pedidoRepository.buscarPorGig(gig);
     }
 
     async obtenerPedidosVendedor(vendedorId) {
@@ -159,7 +165,7 @@ class PedidoService {
     }
     
     #buscarUsuario(id){
-        return this.usuarioRepository.buscarPorId(usuarioId);
+        return this.usuarioRepository.buscarPorId(id);
     }
 
     #buscarGig(gigId){
@@ -172,4 +178,19 @@ class PedidoService {
         );
 }
 }
-export default PedidoService;
+
+const pedidoRepository = new PedidoRepositoryMemoria();
+const cambioEstadoPedidoRepository = new CambioEstadoPedidoRepositoryMemoria();
+const usuarioRepository = new UsuarioRepositoryMemoria();
+const gigRepository = new GigRepositoryMemoria();
+const opinionRepository = new OpinionRepositoryMemoria();
+
+const pedidoService = new PedidoService(
+    pedidoRepository,
+    cambioEstadoPedidoRepository,
+    usuarioRepository,
+    gigRepository,
+    opinionRepository
+);
+
+export default pedidoService;

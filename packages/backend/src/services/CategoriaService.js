@@ -1,15 +1,15 @@
-import { Categoria } from "../domain/entities/Categoria";
-import CategoriaRepository from "../repositories/CategoriaRepository";
+import Categoria  from "../domain/entities/Categoria.js";
+import CategoriaRepositoryMemoria from "../repositories/memory/CategoriaRepositoryMemoria.js";
 import { randomUUID } from "crypto";
 
-class CategoriaService {
+export class CategoriaService {
     constructor(categoriaRepository) {
         this.categoriaRepository = categoriaRepository;
     }
     
     async crearCategoria(payload) {
 
-        this.#validarSiYaExisteCategoria(payload.nombre);
+        await this.#validarSiYaExisteCategoria(payload.nombre);
         const categoria = this.#crearEntidadCategoria(payload);
         await this.categoriaRepository.guardar(categoria);
 
@@ -42,4 +42,8 @@ class CategoriaService {
     }
 
 }
-export default CategoriaService;
+
+const categoriaRepository = new CategoriaRepositoryMemoria();
+const categoriaService = new CategoriaService(categoriaRepository);
+
+export default categoriaService;

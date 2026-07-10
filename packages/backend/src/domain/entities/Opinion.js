@@ -1,4 +1,4 @@
-export class Opinion {
+class Opinion {
 
     constructor(cliente, gig, detalle, puntuacion) {
         this.cliente = cliente;
@@ -10,3 +10,4 @@ export class Opinion {
     }
 
 }
+export default Opinion;

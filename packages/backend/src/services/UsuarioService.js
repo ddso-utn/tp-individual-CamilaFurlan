@@ -1,13 +1,17 @@
 import Usuario from "../domain/entities/Usuario.js";
-import UsuarioRepository from "../repositories/UsuarioRepository.js";
-import GigRepository from "../repositories/GigRepository.js";
+import UsuarioRepositoryMemoria from "../repositories/memory/UsuarioRepositoryMemoria.js";
+import GigRepositoryMemoria from "../repositories/memory/GigRepositoryMemoria.js";
 import { randomUUID } from "crypto";
 
 
-class UsuarioService {
+export class UsuarioService {
     constructor(usuarioRepository, gigRepository) {
         this.usuarioRepository = usuarioRepository;
         this.gigRepository = gigRepository;
+    }
+
+    async obtenerTodos() {
+        return await this.usuarioRepository.obtenerTodos();
     }
 
     async crearUsuario(payload) {
@@ -28,7 +32,7 @@ class UsuarioService {
 
 
     async obtenerUsuarioPorId(usuarioId) {
-        return await this.usuarioRepository.obtenerUsuarioPorId(usuarioId);
+        return await this.usuarioRepository.buscarPorId(usuarioId);
     }
 
     async agregarFavorito(gigId, usuarioId) {
@@ -60,11 +64,20 @@ class UsuarioService {
     }
 
     #buscarGig(gigId) {
-        return this.gigRepository.obtenerGigPorId(gigId);
+        return this.gigRepository.buscarPorId(gigId);
     }
     #buscarUsuario(usuarioId) {
-        return this.usuarioRepository.obtenerUsuarioPorId(usuarioId);
+        return this.usuarioRepository.buscarPorId(usuarioId);
     }
 
 }
-export default UsuarioService;
+
+const usuarioRepository = new UsuarioRepositoryMemoria();
+const gigRepository = new GigRepositoryMemoria();
+
+const usuarioService = new UsuarioService(
+    usuarioRepository,
+    gigRepository
+);
+
+export default usuarioService;

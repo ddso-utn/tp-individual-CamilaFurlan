@@ -1,4 +1,4 @@
-export class Categoria {
+class Categoria {
 
     constructor(id, nombre, descripcion) {
         this.id = id;
@@ -7,3 +7,4 @@ export class Categoria {
     }
 
 }
+export default Categoria;

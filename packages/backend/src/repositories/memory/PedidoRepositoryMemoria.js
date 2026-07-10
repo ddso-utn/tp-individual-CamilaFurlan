@@ -1,3 +1,5 @@
+import PedidoRepository from "../PedidoRepository.js";
+
 class PedidoRepositoryMemoria extends PedidoRepository {
 
     constructor() {
@@ -8,6 +10,11 @@ class PedidoRepositoryMemoria extends PedidoRepository {
     guardar(pedido) {
         this.pedidos.push(pedido);
     }
+
+    obtenerTodos() {
+        return this.pedidos;
+    }
+
     buscarPorId(id) {
         const pedido = this.pedidos.find(pedido => pedido.id === id);
         if (!pedido) {
@@ -43,3 +50,5 @@ class PedidoRepositoryMemoria extends PedidoRepository {
         }
     }
 }
+
+export default PedidoRepositoryMemoria;

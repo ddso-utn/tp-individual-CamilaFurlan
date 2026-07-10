@@ -1,5 +1,6 @@
 class PedidoRepository {
     guardar(pedido) {}
+    obtenerTodos() {}
     buscarPorId(id) {}
     buscarPorCliente(cliente) {}
     buscarPorGig(gig) {}

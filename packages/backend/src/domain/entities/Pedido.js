@@ -1,6 +1,6 @@
 import { EstadoPedido } from "../enums/EstadoPedido.js";
 
-export class Pedido {
+class Pedido {
 
     constructor(
         id,
@@ -78,3 +78,4 @@ export class Pedido {
         }
     }
 }
+export default Pedido;

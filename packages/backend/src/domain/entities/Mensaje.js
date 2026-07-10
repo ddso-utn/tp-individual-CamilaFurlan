@@ -1,4 +1,4 @@
-export class Mensaje {
+class Mensaje {
 
     constructor(id, autor, mensaje) {
 
@@ -10,3 +10,4 @@ export class Mensaje {
     }
 
 }
+export default Mensaje;

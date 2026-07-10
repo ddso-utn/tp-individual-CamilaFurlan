@@ -1,3 +1,5 @@
+import GigRepository from "../GigRepository.js";
+
 class GigRepositoryMemoria extends GigRepository {
 
     constructor() {
@@ -78,7 +80,7 @@ class GigRepositoryMemoria extends GigRepository {
         }
 
         return gigs;
-    }fe
+    }
 
     actualizar(gig) {
         const index = this.gigs.findIndex(g => g.id === gig.id);
@@ -102,3 +104,5 @@ class GigRepositoryMemoria extends GigRepository {
     }
 
 }
+
+export default GigRepositoryMemoria;

@@ -1,9 +1,10 @@
 import { Router } from "express";
-import usuarioController from "../controllers/UsuarioController.js";
+import usuarioController from "../controllers/usuario.controller.js";
 
 const router = Router();
 
 router.post("/", usuarioController.crear);
+router.get("/", usuarioController.obtenerTodos);
 
 router.get("/:usuarioId", usuarioController.obtenerPorId);
 

@@ -1,0 +1,91 @@
+﻿Trabajo Práctico Integrador - 1C 2026 diseño de sistemas de información.png 
+________________
+
+
+AI Do it - Plataforma de Servicios Freelance
+  
+
+Trabajo Práctico Individual de 
+Desarrollo con Inteligencia Artificial
+-1C 2026-
+________________
+AI Do it - Plataforma de Servicios Freelance        1
+Objetivo del trabajo        3
+Contexto general        4
+Diagrama Tentativo        5
+Requerimientos Técnicos        6
+Casos de Uso        8
+Entrega        9
+________________
+Objetivo del trabajo
+
+
+El objetivo de este trabajo práctico es brindar a los estudiantes un espacio de experimentación intensiva con herramientas de Inteligencia Artificial aplicadas al desarrollo de software. 
+Actualmente, el uso de IA se ha convertido en un factor clave para potenciar la productividad, acelerar ciclos de desarrollo y asistir en la resolución de problemas técnicos complejos.
+Sin embargo, también resulta fundamental comprender las implicancias de depender excesivamente de estas herramientas sin un adecuado criterio técnico. Por este motivo, el presente trabajo propone explorar el uso de Inteligencia Artificial como herramienta principal de desarrollo, promoviendo su utilización de manera intensiva pero consciente.
+En este trabajo se buscará que los estudiantes desarrollen una aplicación completa utilizando Inteligencia Artificial como principal apoyo durante todo el proceso de construcción. Se espera que los estudiantes se enfrenten al desafío de trabajar con tecnologías y herramientas que no hayan utilizado previamente, con el objetivo de fortalecer su capacidad de aprendizaje autónomo, adaptación tecnológica y resolución de problemas en contextos reales de desarrollo.
+________________
+Contexto general
+Durante los últimos años, el trabajo independiente y la contratación de servicios digitales crecieron de forma sostenida, impulsados por la globalización del talento y la necesidad de resolver problemas de manera rápida y flexible. Cada vez más personas y empresas buscan contratar profesionales para tareas específicas como desarrollo de software, diseño, marketing digital, análisis de datos o generación de contenido, sin necesidad de establecer relaciones laborales permanentes. En paralelo, miles de profesionales eligen trabajar de forma autónoma, ofreciendo sus habilidades a clientes de todo el mundo.
+En este contexto, surge la necesidad de plataformas que permitan conectar de manera simple y segura a quienes ofrecen servicios con quienes los necesitan. Los freelancers requieren herramientas que les permitan publicar sus servicios, definir claramente qué incluyen sus diferentes paquetes, establecer precios y tiempos de entrega, y administrar sus trabajos activos. Por su parte, los compradores buscan soluciones que les permitan explorar servicios por categoría, buscar ofertas específicas mediante una barra de búsqueda y contratar de manera rápida y confiable.
+Como respuesta a esta necesidad, una organización ha solicitado el desarrollo de AI Do It, una plataforma web orientada a la publicación y contratación de servicios freelance. Dentro del sistema, los freelancers podrán crear y gestionar sus servicios, incluyendo descripciones detalladas, material multimedia y distintas opciones de contratación según alcance, precio y tiempo de entrega. Los compradores, a su vez, podrán navegar el catálogo de servicios, filtrar por categorías, guardar servicios favoritos y contratar el que mejor se adapte a sus necesidades.
+Una vez contratado un servicio, el sistema permitirá realizar un seguimiento del trabajo a lo largo de su progreso. Los pedidos atravesarán distintas etapas que reflejan el avance del servicio, permitiendo tanto al comprador como al freelancer conocer el estado actual del trabajo y realizar las acciones correspondientes en cada momento. Además, cada pedido contará con un espacio de comunicación simple donde ambas partes podrán intercambiar mensajes para aclarar detalles, solicitar ajustes y coordinar la entrega final.
+Para acompañar este flujo, la plataforma buscará brindar una experiencia clara, ordenada y transparente, facilitando la organización del trabajo y reduciendo la dependencia de canales externos de comunicación.
+Para llevar adelante este objetivo, se diseñará e implementará AI Do It como una solución web moderna y escalable. El desarrollo se organizará en distintas iteraciones, permitiendo construir progresivamente las funcionalidades principales del sistema, comenzando desde el modelo conceptual del negocio hasta la implementación completa de la plataforma.
+Diagrama Tentativo
+  
+
+
+
+
+
+
+
+Requerimientos Técnicos
+Para el desarrollo del trabajo práctico se espera la implementación de dos módulos principales:
+* Módulo Back-End, desarrollado utilizando Node + express.
+* Módulo Front-End, desarrollado utilizando React Native.
+La aplicación deberá ejecutarse de forma local en un dispositivo “mobile” y utilizar un mecanismo de persistencia en memoria para el almacenamiento de datos.
+A continuación se listan algunas herramientas recomendadas para asistir el desarrollo. Su uso no es obligatorio.
+* Claude 
+Asistente conversacional + Depurador de lógica. Muy útil para acelerar el desarrollo y explicar código, aunque limitado por un cupo de mensajes diario en su versión gratuita.
+* Cursor
+Editor de código con IA integrada. Útil para generar, entender y modificar código directamente dentro del proyecto, especialmente en backend y lógica general.
+* Visual Studio Code + GitHub Copilot 
+Entorno de desarrollo + autocompletado inteligente. Muy útil para acelerar la escritura de código, especialmente en frontend y estructuras repetitivas.
+* Google Antigravity
+Herramienta útil para exploración de ideas, documentación, análisis de flujos y generación de contenido conceptual.
+* v0 (Vercel) 
+Generador de interfaces a partir de prompts. Ideal para prototipar frontend. No genera aplicaciones completas, por lo que suele usarse para diseñar la UI y luego implementar la lógica real en el proyecto.
+* Base44 
+Plataforma de generación de aplicaciones mediante IA. Puede ser útil para generar estructuras visuales o flujos iniciales. Al igual que v0, es más útil como base o referencia visual que como código final completo.
+* Replit 
+Permite a los usuarios escribir código y crear aplicaciones y sitios web mediante una interfaz conversacional. Útil como base para diseñar UI.
+El objetivo de este trabajo es analizar el desarrollo de software potenciado mediante herramientas de inteligencia artificial, considerando tanto sus ventajas como sus desventajas. 
+No se espera bajo ningún concepto la suscripción, compra o uso de herramientas pagas; el enfoque estará puesto en la comprensión de los conceptos, la capacidad de análisis y la correcta aplicación de las herramientas disponibles por sobre la perfección absoluta de los resultados obtenidos. 
+Se valorará especialmente el criterio utilizado durante el proceso de desarrollo, la justificación de decisiones y la reflexión crítica sobre el uso de IA en el contexto planteado. 
+________________
+Casos de Uso
+Se espera el desarrollo de las siguientes funcionalidades:
+* Como cliente, quiero poder visualizar los pedidos, diferenciando con claridad el estado en el que se encuentran y en cuántos días se entregarán en caso de estar en estado confirmado.
+* Como freelancer, quiero poder visualizar los pedidos asociados a un Gig en particular, diferenciando con claridad el estado en el que se encuentran y cuánto tiempo resta para su entrega.
+Como cliente, quiero poder buscar Gigs de forma específica mediante una búsqueda textual o explorarlos por categorías.
+* Como freelancer, quiero poder crear un Gig ofreciendo distintos paquetes, permitiendo adaptarse a diferentes necesidades y presupuestos de los clientes.
+* Como cliente, quiero poder enviar mensajes en cualquier momento relacionados a una entrega mediante un chat dentro del pedido.
+* Como freelancer, quiero poder enviar mensajes en cualquier momento relacionados a una entrega mediante un chat dentro del pedido.
+* Como cliente, quiero poder cancelar un pedido en cualquier momento para evitar pagar por un servicio que no cumpla con mis expectativas.
+* Como freelancer, quiero que los clientes puedan cancelar el pedido siempre que el mismo no se encuentre en estado entregado.
+* Como freelancer, quiero que una vez entregado un pedido el cliente pueda puntuar el Gig de forma numérica y dejar un comentario escrito.
+* Como cliente, quiero que los comentarios realizados al finalizar un pedido se visualicen en el Gig para que otros clientes puedan conocer experiencias previas.
+* Como cliente, al buscar Gigs, quiero poder ordenarlos por precio, puntaje y fecha de publicación.
+* Como cliente, quiero poder realizar un pedido sobre un Gig seleccionando uno de los paquetes disponibles y especificando los requerimientos particulares.
+________________
+Entrega
+Cada estudiante deberá grabar un video de entre 5 y 10 minutos de duración y enviarlo al equipo docente (la fecha de entrega será informada oportunamente).
+En el video se deberá realizar una demostración técnica completa de la aplicación desarrollada. La presentación deberá enfocarse en uno de los flujos funcionales implementados (a elección del alumno), explicando su funcionamiento integral.
+Se espera que el estudiante detalle:
+   * La implementación del flujo en el Back-End.
+   * La implementación del flujo en el Front-End.
+   * El recorrido completo del flujo dentro de la interfaz gráfica de la aplicación.
+Adicionalmente, el estudiante deberá incluir una conclusión final, en la cual reflexione sobre el proceso de desarrollo utilizando herramientas de Inteligencia Artificial. En esta sección se espera que se identifiquen ventajas y desventajas del uso de IA en el desarrollo de software, dificultades encontradas durante la implementación, aprendizajes obtenidos y una valoración personal sobre el impacto de estas herramientas en su productividad y en la calidad del resultado final.
+Página

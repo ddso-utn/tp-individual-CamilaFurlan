@@ -1,4 +1,4 @@
-export class Usuario {
+class Usuario {
 
     constructor(id, nombre, apellido) {
 
@@ -15,3 +15,4 @@ export class Usuario {
         this.favoritos = this.favoritos.filter(fav => fav !== gig);
     };
 }
+export default Usuario;

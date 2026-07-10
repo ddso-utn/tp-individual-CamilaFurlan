@@ -1,4 +1,4 @@
-export class Gig {
+class Gig {
 
     constructor(
         id,
@@ -33,3 +33,5 @@ export class Gig {
     }
 
 }
+
+export default Gig;
