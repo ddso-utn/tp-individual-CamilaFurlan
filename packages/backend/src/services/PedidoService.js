@@ -115,6 +115,12 @@ class PedidoService {
         return await this.pedidoRepository.buscarPorGig(gigId);
     }
 
+    async obtenerPedidosVendedor(vendedorId) {
+
+        const vendedor = this.#buscarUsuario(vendedorId);
+        return await this.pedidoRepository.buscarPorVendedor(vendedor);
+    }
+
     async calificarPedido(pedidoId, payload) {
 
         const pedido = this.#buscarPedido(pedidoId);
