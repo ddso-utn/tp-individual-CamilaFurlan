@@ -16,7 +16,6 @@ class Gig {
         this.multimedia = [];
         this.vendedor = vendedor;
         this.fechaPublicacion = new Date();
-        this.opiniones = [];
 
     }
 

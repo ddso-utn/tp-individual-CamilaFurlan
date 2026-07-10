@@ -4,10 +4,11 @@ import { randomUUID } from "crypto";
 
 export class GigService {
 
-    constructor(gigRepository, categoriaRepository, usuarioRepository) {
+    constructor(gigRepository, categoriaRepository, usuarioRepository, opinionRepository) {
         this.gigRepository = gigRepository;
         this.categoriaRepository = categoriaRepository;
         this.usuarioRepository = usuarioRepository;
+        this.opinionRepository = opinionRepository; 
     }
 
     async crearGig(payload) {
@@ -61,33 +62,56 @@ export class GigService {
     }
 
     async obtenerTodos() {
-        return await this.gigRepository.obtenerTodos();
+        const gigs = await this.gigRepository.obtenerTodos();
+
+        return await Promise.all( gigs.map(gig => this.#mapearGig(gig)));
     }
 
     async buscar(filtros) {
-        return await this.gigRepository.buscar(filtros);
+        const gigs = await this.gigRepository.buscar(filtros);
+        return await Promise.all( gigs.map(gig => this.#mapearGig(gig)));
+        }
+
+    async #mapearGig(gig) {
+
+        const opiniones = await this.opinionRepository.buscarPorGig(gig.id);
+
+        const promedio = opiniones.length > 0 ? opiniones.reduce(
+            (total, opinion) => total + opinion.puntuacion, 0) / opiniones.length : 0;
+        return {
+            ...gig,
+            puntuacionPromedio: promedio,
+            cantidadOpiniones: opiniones.length
+        };
+
     }
 
     async buscarPorTexto(texto) {
-        return await this.gigRepository.buscarPorTexto(texto);
+        const gigs = await this.gigRepository.buscarPorTexto(texto);
+
+        return await Promise.all(gigs.map(gig => this.#mapearGig(gig)));
     }
 
     async buscarPorCategoria(categoriaId) {
 
         const categoria = this.#buscarCategoria(categoriaId);
+        const gigs =  await this.gigRepository.buscarPorCategoria(categoria);
 
-        return await this.gigRepository.buscarPorCategoria(categoria);
+        return await Promise.all(gigs.map(gig => this.#mapearGig(gig)));
     }
+
 
     async buscarPorVendedor(vendedorId) {
 
         const vendedor = this.#buscarUsuario(vendedorId);
 
-        return await this.gigRepository.buscarPorVendedor(vendedor);
+        const gigs= await this.gigRepository.buscarPorVendedor(vendedor);
+        return await Promise.all( gigs.map(gig => this.#mapearGig(gig)));
     }
 
     async buscarPorId(gigId) {
-        return await this.gigRepository.buscarPorId(gigId);
+        const gig = await this.gigRepository.buscarPorId(gigId);
+        return gig.#mapearGig(gig);
     }
 
     async obtenerPaquetes(gigId) {

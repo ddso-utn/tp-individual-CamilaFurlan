@@ -10,10 +10,9 @@ function GigCard({ gig }) {
             ? Math.min(...gig.paquetes.map(paquete => paquete.precio))
             : 0;
 
-    const puntuacion =
-        gig.puntuacionPromedio ??
-        gig.puntaje ??
-        5;
+    const puntuacion = gig.puntuacionPromedio ?? 0;
+    
+    const cantidadOpiniones = gig.cantidadOpiniones ?? 0;
 
     return (
 
