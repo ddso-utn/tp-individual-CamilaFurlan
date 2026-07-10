@@ -21,7 +21,8 @@ const categoriaService = new CategoriaService(categoriaRepository);
 const gigService = new GigService(
     gigRepository,
     categoriaRepository,
-    usuarioRepository
+    usuarioRepository, 
+    opinionRepository
 );
 const usuarioService = new UsuarioService(
     usuarioRepository,

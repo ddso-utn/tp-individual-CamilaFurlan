@@ -11,7 +11,7 @@ function GigCard({ gig }) {
             : 0;
 
     const puntuacion = gig.puntuacionPromedio ?? 0;
-    
+
     const cantidadOpiniones = gig.cantidadOpiniones ?? 0;
 
     return (
@@ -52,12 +52,13 @@ function GigCard({ gig }) {
                         fill="currentColor"
                     />
 
-                    <span>
-
-                        {Number(puntuacion).toFixed(1)}
-
-                    </span>
-
+                    {cantidadOpiniones > 0 ? (
+                            <span>
+                                {puntuacion.toFixed(1)} ({cantidadOpiniones})
+                            </span>
+                        ) : (
+                            <span>Sin calificaciones</span>)
+                    }
                 </div>
 
                 <div className="gig-footer">

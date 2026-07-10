@@ -1,4 +1,4 @@
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil, Trash2, Star } from "lucide-react";
 
 import Button from "./Button";
 
@@ -16,6 +16,10 @@ function MiGigCard({
                 )
             )
             : 0;
+
+    const puntuacion = gig.puntuacionPromedio ?? 0;
+
+    const cantidadOpiniones = gig.cantidadOpiniones ?? 0;
 
     return (
 
@@ -44,6 +48,25 @@ function MiGigCard({
                     {gig.descripcion}
 
                 </p>
+
+                <div className="gig-rating">
+
+                    <Star
+                        size={16}
+                        fill="currentColor"
+                    />
+
+                    {
+                        cantidadOpiniones > 0 ? (
+                            <span>
+                                {puntuacion.toFixed(1)} ({cantidadOpiniones})
+                            </span>
+                        ) : (
+                            <span>Nuevo</span>
+                        )
+                    }
+
+                </div>
 
                 <div className="gig-footer">
 
