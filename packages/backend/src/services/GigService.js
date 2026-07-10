@@ -64,12 +64,25 @@ export class GigService {
     async obtenerTodos() {
         const gigs = await this.gigRepository.obtenerTodos();
 
-        return await Promise.all( gigs.map(gig => this.#mapearGig(gig)));
+        const respuesta = [];
+
+        for (const gig of gigs) {
+            respuesta.push(await this.#mapearGig(gig));
+        }
+
+        return respuesta;
     }
 
     async buscar(filtros) {
         const gigs = await this.gigRepository.buscar(filtros);
-        return await Promise.all( gigs.map(gig => this.#mapearGig(gig)));
+        
+        const respuesta = [];
+
+        for (const gig of gigs) {
+            respuesta.push(await this.#mapearGig(gig));
+        }
+
+        return respuesta;
         }
 
     async #mapearGig(gig) {
@@ -88,8 +101,13 @@ export class GigService {
 
     async buscarPorTexto(texto) {
         const gigs = await this.gigRepository.buscarPorTexto(texto);
+        const respuesta = [];
 
-        return await Promise.all(gigs.map(gig => this.#mapearGig(gig)));
+        for (const gig of gigs) {
+            respuesta.push(await this.#mapearGig(gig));
+        }
+
+        return respuesta;
     }
 
     async buscarPorCategoria(categoriaId) {
@@ -97,7 +115,13 @@ export class GigService {
         const categoria = this.#buscarCategoria(categoriaId);
         const gigs =  await this.gigRepository.buscarPorCategoria(categoria);
 
-        return await Promise.all(gigs.map(gig => this.#mapearGig(gig)));
+        const respuesta = [];
+
+        for (const gig of gigs) {
+            respuesta.push(await this.#mapearGig(gig));
+        }
+
+        return respuesta;
     }
 
 
@@ -106,12 +130,18 @@ export class GigService {
         const vendedor = this.#buscarUsuario(vendedorId);
 
         const gigs= await this.gigRepository.buscarPorVendedor(vendedor);
-        return await Promise.all( gigs.map(gig => this.#mapearGig(gig)));
+        const respuesta = [];
+
+        for (const gig of gigs) {
+            respuesta.push(await this.#mapearGig(gig));
+        }
+
+        return respuesta;
     }
 
     async buscarPorId(gigId) {
         const gig = await this.gigRepository.buscarPorId(gigId);
-        return gig.#mapearGig(gig);
+        return this.#mapearGig(gig);
     }
 
     async obtenerPaquetes(gigId) {
