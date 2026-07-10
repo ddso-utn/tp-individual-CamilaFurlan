@@ -2,11 +2,6 @@ import Pedido from "../domain/entities/Pedido.js";
 import Mensaje from "../domain/entities/Mensaje.js"
 import Opinion from "../domain/entities/Opinion.js"
 import CambioEstadoPedido from "../domain/entities/CambioEstadoPedido.js";
-import PedidoRepositoryMemoria from "../repositories/memory/PedidoRepositoryMemoria.js";
-import CambioEstadoPedidoRepositoryMemoria from "../repositories/memory/CambioEstadoPedidoRepositoryMemoria.js";
-import UsuarioRepositoryMemoria from "../repositories/memory/UsuarioRepositoryMemoria.js";
-import GigRepositoryMemoria from "../repositories/memory/GigRepositoryMemoria.js";
-import OpinionRepositoryMemoria from "../repositories/memory/OpinionRepositoryMemoria.js";
 import { randomUUID } from "crypto";
 
 export class PedidoService {
@@ -52,6 +47,7 @@ export class PedidoService {
             cliente,
             gig,
             paquete,
+            paquete.precio,
             requerimientos,
             fechaEntrega
         );
@@ -65,6 +61,8 @@ export class PedidoService {
         await this.pedidoRepository.actualizar(pedido);
         
         this.#registrarCambioEstadoPedido(pedido, usuario);
+
+        return pedido;
     }
     
     async marcarEnProgreso(pedidoId, usuarioId) {
@@ -72,10 +70,25 @@ export class PedidoService {
         const usuario =this.#buscarUsuario(usuarioId);
 
         pedido.esVendedor(usuario);
-        pedido.marcarEnProgreso();
+        pedido.confirmar();
         await this.pedidoRepository.actualizar(pedido);
         
         this.#registrarCambioEstadoPedido(pedido, usuario);
+
+        return pedido;
+    }
+
+    async marcarEnRevision(pedidoId, usuarioId) {
+        const pedido = this.#buscarPedido(pedidoId);
+        const usuario = this.#buscarUsuario(usuarioId);
+
+        pedido.esCliente(usuario);
+        pedido.marcarEnRevision();
+        await this.pedidoRepository.actualizar(pedido);
+
+        this.#registrarCambioEstadoPedido(pedido, usuario);
+
+        return pedido;
     }
 
     async entregarPedido(pedidoId, usuarioId) {
@@ -87,6 +100,8 @@ export class PedidoService {
         await this.pedidoRepository.actualizar(pedido);
         
         this.#registrarCambioEstadoPedido(pedido, usuario);
+
+        return pedido;
     }
 
     async enviarMensaje(pedidoId, payload) {
@@ -107,8 +122,7 @@ export class PedidoService {
     return new Mensaje(
         randomUUID(),
         autor,
-        payload.mensaje,
-        new Date()
+        payload.mensaje
     );
 }
     async obtenerPedidosCliente(clienteId){
@@ -134,8 +148,10 @@ export class PedidoService {
         pedido.calificar();
 
         const opinion = this.#crearOpinion(pedido, payload);
+        pedido.gig.agregarOpinion(opinion);
         await this.opinionRepository.guardar(opinion);
         await this.pedidoRepository.actualizar(pedido);
+        await this.gigRepository.actualizar(pedido.gig);
 
         return opinion;
     }
@@ -179,18 +195,4 @@ export class PedidoService {
 }
 }
 
-const pedidoRepository = new PedidoRepositoryMemoria();
-const cambioEstadoPedidoRepository = new CambioEstadoPedidoRepositoryMemoria();
-const usuarioRepository = new UsuarioRepositoryMemoria();
-const gigRepository = new GigRepositoryMemoria();
-const opinionRepository = new OpinionRepositoryMemoria();
-
-const pedidoService = new PedidoService(
-    pedidoRepository,
-    cambioEstadoPedidoRepository,
-    usuarioRepository,
-    gigRepository,
-    opinionRepository
-);
-
-export default pedidoService;
+export default PedidoService;

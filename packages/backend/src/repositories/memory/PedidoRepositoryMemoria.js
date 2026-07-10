@@ -23,25 +23,13 @@ class PedidoRepositoryMemoria extends PedidoRepository {
         return pedido;
     }
     buscarPorCliente(cliente) {
-        const pedidosCliente = this.pedidos.filter(pedido => pedido.cliente === cliente);
-        if (pedidosCliente.length === 0) {
-            throw new Error(`No se encontraron pedidos para el cliente con id ${cliente.id}`);
-        }
-        return pedidosCliente;
+        return this.pedidos.filter(pedido => pedido.cliente === cliente);
     }
     buscarPorGig(gig) {
-        const pedidosGig = this.pedidos.filter(pedido => pedido.gig === gig);
-        if (pedidosGig.length === 0) {
-            throw new Error(`No se encontraron pedidos para el gig con id ${gig.id}`);
-        }
-        return pedidosGig;
+        return this.pedidos.filter(pedido => pedido.gig === gig);
     }
     buscarPorVendedor(vendedor) {
-        const pedidosVendedor = this.pedidos.filter(pedido => pedido.gig.vendedor === vendedor);
-        if (pedidosVendedor.length === 0) {
-            throw new Error(`No se encontraron pedidos para el vendedor con id ${vendedor.id}`);
-        }
-        return pedidosVendedor;
+        return this.pedidos.filter(pedido => pedido.gig.vendedor === vendedor);
     }
     actualizar(pedido) {
         const index = this.pedidos.findIndex(p => p.id === pedido.id);

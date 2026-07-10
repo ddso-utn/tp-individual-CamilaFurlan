@@ -1,9 +1,9 @@
-import pedidoServiceDefault from "../services/PedidoService.js";
+import { pedidoService } from "../container.js";
 
 export class PedidoController {
 
-    constructor({ pedidoService = pedidoServiceDefault } = {}) {
-        this.pedidoService = pedidoService;
+    constructor({ pedidoService: pedidoServiceArg = pedidoService } = {}) {
+        this.pedidoService = pedidoServiceArg;
     }
 
     crear = async (req, res, next) => {
@@ -40,6 +40,19 @@ export class PedidoController {
     marcarEnProgreso = async (req, res, next) => {
         try {
             const pedido = await this.pedidoService.marcarEnProgreso(
+                req.params.pedidoId,
+                req.body.usuarioId
+            );
+
+            res.status(200).json(pedido);
+        } catch (error) {
+            next(error);
+        }
+    };
+
+    marcarEnRevision = async (req, res, next) => {
+        try {
+            const pedido = await this.pedidoService.marcarEnRevision(
                 req.params.pedidoId,
                 req.body.usuarioId
             );

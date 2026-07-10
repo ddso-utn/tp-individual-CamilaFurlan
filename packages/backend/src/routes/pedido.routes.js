@@ -10,6 +10,8 @@ router.patch("/:pedidoId/cancelacion", pedidoController.cancelar);
 
 router.patch("/:pedidoId/confirmacion", pedidoController.marcarEnProgreso);
 
+router.patch("/:pedidoId/revision", pedidoController.marcarEnRevision);
+
 router.patch("/:pedidoId/entrega", pedidoController.entregar);
 
 router.post("/:pedidoId/mensajes", pedidoController.enviarMensaje);

@@ -1,9 +1,9 @@
-import categoriaServiceDefault from "../services/CategoriaService.js";
+import { categoriaService } from "../container.js";
 
 export class CategoriaController {
 
-    constructor({ categoriaService = categoriaServiceDefault } = {}) {
-        this.categoriaService = categoriaService;
+    constructor({ categoriaService: categoriaServiceArg = categoriaService } = {}) {
+        this.categoriaService = categoriaServiceArg;
     }
 
     crear = async (req, res, next) => {

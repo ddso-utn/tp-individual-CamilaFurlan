@@ -1,6 +1,4 @@
 import Usuario from "../domain/entities/Usuario.js";
-import UsuarioRepositoryMemoria from "../repositories/memory/UsuarioRepositoryMemoria.js";
-import GigRepositoryMemoria from "../repositories/memory/GigRepositoryMemoria.js";
 import { randomUUID } from "crypto";
 
 
@@ -71,13 +69,4 @@ export class UsuarioService {
     }
 
 }
-
-const usuarioRepository = new UsuarioRepositoryMemoria();
-const gigRepository = new GigRepositoryMemoria();
-
-const usuarioService = new UsuarioService(
-    usuarioRepository,
-    gigRepository
-);
-
-export default usuarioService;
+export default UsuarioService;

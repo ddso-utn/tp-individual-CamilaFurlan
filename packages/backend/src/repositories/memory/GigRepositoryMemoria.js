@@ -32,7 +32,12 @@ class GigRepositoryMemoria extends GigRepository {
     }
 
     buscarPorTexto(texto) {
-        return this.gigs.filter(gig => gig.nombre.includes(texto) || gig.descripcion.includes(texto));
+        const textoNormalizado = texto.trim().toLowerCase();
+
+        return this.gigs.filter(gig =>
+            gig.nombre.toLowerCase().includes(textoNormalizado) ||
+            gig.descripcion.toLowerCase().includes(textoNormalizado)
+        );
     }
 
     buscarPorVendedor(usuario) {

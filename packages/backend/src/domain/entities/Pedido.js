@@ -35,17 +35,27 @@ class Pedido {
         this.estado = EstadoPedido.CANCELADO;
     };
 
-    marcarEnProgreso(){
+    confirmar(){
         if(this.estado !== EstadoPedido.PENDIENTE){
-            throw new Error("Solo se puede marcar EN PROGRESO un pedido que esté en estado PENDIENTE.");
+            throw new Error("Solo se puede confirmar un pedido que esté en estado PENDIENTE.");
         }
-        this.estado = EstadoPedido.EN_PROGRESO;
+        this.estado = EstadoPedido.CONFIRMADO;
+    };
+
+    marcarEnRevision(){
+        if(this.estado !== EstadoPedido.CONFIRMADO){
+            throw new Error("Solo se puede pasar a revision un pedido que esté en estado CONFIRMADO.");
+        }
+        this.estado = EstadoPedido.EN_REVISION;
     };
 
     entregar(){
 
-        if(this.estado !== EstadoPedido.EN_PROGRESO){
-            throw new Error("Solo se puede entregar un pedido que esté en estado EN PROGRESO.");
+        if(
+            this.estado !== EstadoPedido.CONFIRMADO &&
+            this.estado !== EstadoPedido.EN_REVISION
+        ){
+            throw new Error("Solo se puede entregar un pedido que esté en estado CONFIRMADO o EN_REVISION.");
         }
         this.estado = EstadoPedido.ENTREGADO;
     };

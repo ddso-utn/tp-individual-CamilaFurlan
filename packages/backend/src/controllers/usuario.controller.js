@@ -1,9 +1,9 @@
-import usuarioServiceDefault from "../services/UsuarioService.js";
+import { usuarioService } from "../container.js";
 
 export class UsuarioController {
 
-    constructor({ usuarioService = usuarioServiceDefault } = {}) {
-        this.usuarioService = usuarioService;
+    constructor({ usuarioService: usuarioServiceArg = usuarioService } = {}) {
+        this.usuarioService = usuarioServiceArg;
     }
 
     crear = async (req, res, next) => {

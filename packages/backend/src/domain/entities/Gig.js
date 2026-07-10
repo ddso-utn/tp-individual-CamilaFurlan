@@ -32,6 +32,19 @@ class Gig {
         this.opiniones.push(opinion);
     }
 
+    obtenerPuntajePromedio() {
+        if (this.opiniones.length === 0) {
+            return 0;
+        }
+
+        const total = this.opiniones.reduce(
+            (acumulado, opinion) => acumulado + opinion.puntuacion,
+            0
+        );
+
+        return total / this.opiniones.length;
+    }
+
 }
 
 export default Gig;

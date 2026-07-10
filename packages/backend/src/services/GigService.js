@@ -1,8 +1,5 @@
 import Gig from "../domain/entities/Gig.js";
 import Paquete from "../domain/entities/Paquete.js";
-import GigRepositoryMemoria from "../repositories/memory/GigRepositoryMemoria.js";
-import CategoriaRepositoryMemoria from "../repositories/memory/CategoriaRepositoryMemoria.js";
-import UsuarioRepositoryMemoria from "../repositories/memory/UsuarioRepositoryMemoria.js";
 import { randomUUID } from "crypto";
 
 export class GigService {
@@ -71,6 +68,17 @@ export class GigService {
         return await this.gigRepository.buscar(filtros);
     }
 
+    async buscarPorTexto(texto) {
+        return await this.gigRepository.buscarPorTexto(texto);
+    }
+
+    async buscarPorCategoria(categoriaId) {
+
+        const categoria = this.#buscarCategoria(categoriaId);
+
+        return await this.gigRepository.buscarPorCategoria(categoria);
+    }
+
     async buscarPorVendedor(vendedorId) {
 
         const vendedor = this.#buscarUsuario(vendedorId);
@@ -102,15 +110,4 @@ export class GigService {
     }
 
 }
-
-const gigRepository = new GigRepositoryMemoria();
-const categoriaRepository = new CategoriaRepositoryMemoria();
-const usuarioRepository = new UsuarioRepositoryMemoria();
-
-const gigService = new GigService(
-    gigRepository,
-    categoriaRepository,
-    usuarioRepository
-);
-
-export default gigService;
+export default GigService;

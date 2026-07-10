@@ -1,9 +1,9 @@
-import gigServiceDefault from "../services/GigService.js";
+import { gigService } from "../container.js";
 
 export class GigController {
 
-    constructor({ gigService = gigServiceDefault } = {}) {
-        this.gigService = gigService;
+    constructor({ gigService: gigServiceArg = gigService } = {}) {
+        this.gigService = gigServiceArg;
     }
 
     crear = async (req, res, next) => {

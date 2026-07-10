@@ -1,5 +1,4 @@
 import Categoria  from "../domain/entities/Categoria.js";
-import CategoriaRepositoryMemoria from "../repositories/memory/CategoriaRepositoryMemoria.js";
 import { randomUUID } from "crypto";
 
 export class CategoriaService {
@@ -42,8 +41,4 @@ export class CategoriaService {
     }
 
 }
-
-const categoriaRepository = new CategoriaRepositoryMemoria();
-const categoriaService = new CategoriaService(categoriaRepository);
-
-export default categoriaService;
+export default CategoriaService;
