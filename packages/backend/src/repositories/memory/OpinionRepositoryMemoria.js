@@ -11,7 +11,7 @@ class OpinionRepositoryMemoria extends OpinionRepository {
         this.opiniones.push(opinion);
     }
     buscarPorGig(gigId){
-        return this.opiniones.filter(opinion => opinion.gig.id === gigId);
+        return this.opiniones.filter(opinion => opinion.gig === gigId);
     }
 
 }
