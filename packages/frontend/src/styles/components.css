@@ -651,3 +651,23 @@
     gap:8px;
 
 }
+
+.delivery-info{
+
+    margin-top:8px;
+
+    font-size:14px;
+
+    color:var(--text-secondary);
+
+    font-weight:500;
+
+}
+
+.delivery-info.late{
+
+    color:#dc2626;
+
+    font-weight:700;
+
+}

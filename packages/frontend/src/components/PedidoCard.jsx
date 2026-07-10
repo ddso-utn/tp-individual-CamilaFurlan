@@ -17,6 +17,20 @@ function PedidoCard({
             ? `${pedido.gig.vendedor.nombre} ${pedido.gig.vendedor.apellido}`
             : `${pedido.cliente.nombre} ${pedido.cliente.apellido}`;
 
+    const diasRestantes = calcularDiasRestantes(pedido.fechaEntrega);
+
+    function calcularDiasRestantes(fechaEntrega) {
+
+        const hoy = new Date();
+
+        const entrega = new Date(fechaEntrega);
+
+        const diferencia = entrega - hoy;
+
+        return Math.ceil(diferencia / (1000 * 60 * 60 * 24));
+
+    }
+
     return (
 
         <article className="pedido-card">
@@ -34,6 +48,19 @@ function PedidoCard({
                 <StatusBadge
                     estado={pedido.estado}
                 />
+
+                {
+                    (pedido.estado === "CONFIRMADO" ||pedido.estado === "EN_REVISION") && (
+                        <p className={diasRestantes < 0
+                                    ? "delivery-info late"
+                                    : "delivery-info"}>
+                            {diasRestantes >= 0
+                                    ? `⏳ Quedan ${diasRestantes} día${diasRestantes !== 1 ? "s" : ""} para la entrega`
+                                    : `⚠️ Atrasado ${Math.abs(diasRestantes)} día${Math.abs(diasRestantes) !== 1 ? "s" : ""}`
+                            }
+                        </p>
+                    )
+                }
             </div>
 
             <div className="pedido-card-body">

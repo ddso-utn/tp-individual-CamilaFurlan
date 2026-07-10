@@ -184,7 +184,7 @@ function MisPedidos() {
 
                                 >
 
-                                    Cancelar pedido
+                                    Cancelar
 
                                 </button>
 
@@ -214,7 +214,7 @@ function MisPedidos() {
 
                                 >
 
-                                    Calificar servicio
+                                    Calificar
 
                                 </button>
 

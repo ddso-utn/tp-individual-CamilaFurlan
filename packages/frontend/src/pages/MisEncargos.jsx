@@ -164,14 +164,14 @@ function MisEncargos() {
                                         className="text-button"
                                         onClick={() => confirmarPedido(pedido)}
                                     >
-                                        Confirmar pedido
+                                        Confirmar
                                     </button>
 
                                     <button
                                         className="text-button danger"
                                         onClick={() => cancelarPedido(pedido)}
                                     >
-                                        Rechazar pedido
+                                        Rechazar
                                     </button>
                                 </>
                             )
@@ -183,7 +183,7 @@ function MisEncargos() {
                                     className="text-button"
                                     onClick={() => pasarRevision(pedido)}
                                 >
-                                    Marcar en revisión
+                                    Revisar
                                 </button>
                             )
                         }
@@ -194,7 +194,7 @@ function MisEncargos() {
                                     className="text-button"
                                     onClick={() => entregarPedido(pedido)}
                                 >
-                                    Marcar como entregado
+                                    Entregar
                                 </button>
                             )
                         }
