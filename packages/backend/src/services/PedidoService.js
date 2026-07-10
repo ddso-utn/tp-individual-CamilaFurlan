@@ -148,10 +148,8 @@ export class PedidoService {
         pedido.calificar();
 
         const opinion = this.#crearOpinion(pedido, payload);
-        pedido.gig.agregarOpinion(opinion);
         await this.opinionRepository.guardar(opinion);
         await this.pedidoRepository.actualizar(pedido);
-        await this.gigRepository.actualizar(pedido.gig);
 
         return opinion;
     }
