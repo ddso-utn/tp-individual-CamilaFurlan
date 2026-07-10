@@ -82,7 +82,7 @@ export class PedidoService {
         const pedido = this.#buscarPedido(pedidoId);
         const usuario = this.#buscarUsuario(usuarioId);
 
-        pedido.esCliente(usuario);
+        pedido.esVendedor(usuario);
         pedido.marcarEnRevision();
         await this.pedidoRepository.actualizar(pedido);
 
