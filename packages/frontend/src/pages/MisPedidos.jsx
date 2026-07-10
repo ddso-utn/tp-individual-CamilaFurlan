@@ -62,7 +62,7 @@ function MisPedidos() {
 
         try {
 
-            await api.enviarMensaje(
+            const pedidoActualizado = await api.enviarMensaje(
 
                 pedidoSeleccionado.id,
 
@@ -76,21 +76,15 @@ function MisPedidos() {
 
             );
 
-            cargarPedidos();
-
-            const actualizado = await api.getPedidosCliente(usuarioId);
-
-            setPedidos(actualizado);
-
-            setPedidoSeleccionado(
-
-                actualizado.find(
-
-                    p => p.id === pedidoSeleccionado.id
-
+            setPedidos(pedidos =>
+                pedidos.map(p =>
+                    p.id === pedidoActualizado.id
+                        ? pedidoActualizado
+                        : p
                 )
-
             );
+
+            setPedidoSeleccionado(pedidoActualizado);
 
         } catch (error) {
 
@@ -99,39 +93,26 @@ function MisPedidos() {
         }
 
     }
-
     async function calificar(pedido) {
 
         const puntaje = Number(
-
             prompt("Puntaje (1 a 5)")
 
         );
-
         const comentario = prompt("Comentario");
-
         if (!puntaje || !comentario) {
-
             return;
 
         }
 
         try {
 
-            await api.calificarPedido(
-
-                pedido.id,
-
+            await api.calificarPedido(pedido.id,
                 {
-
                     usuarioId,
-
                     puntaje,
-
                     comentario
-
                 }
-
             );
 
             cargarPedidos();

@@ -482,18 +482,28 @@
     flex:1;
 
 }
+.pedido-extra-actions{
+
+    display:flex;
+
+    justify-content:center;
+
+    padding:0 20px 20px;
+
+}
 
 /* ==========================================================
    CHAT
 ========================================================== */
-
 .chat-container{
 
     display:flex;
 
     flex-direction:column;
 
-    height:100%;
+    flex:1;
+
+    min-height:0;
 
     gap:16px;
 
@@ -502,6 +512,8 @@
 .chat-messages{
 
     flex:1;
+
+    min-height:0;
 
     overflow-y:auto;
 
@@ -591,6 +603,16 @@
 
     gap:12px;
 
+    align-items:center;
+
+    margin-top:auto;
+
+    padding-bottom:70px;
+
+    border-top:1px solid var(--border);
+
+    background:white;
+
 }
 
 .chat-input input{
@@ -606,5 +628,26 @@
     border:1px solid var(--border);
 
     border-radius:18px;
+
+}
+/* ==========================================================
+   MI GIG CARD
+========================================================== */
+
+.my-gig-actions{
+
+    display:flex;
+
+    gap:12px;
+
+    margin-top:20px;
+
+}
+
+.my-gig-actions .button{
+
+    flex:1;
+
+    gap:8px;
 
 }

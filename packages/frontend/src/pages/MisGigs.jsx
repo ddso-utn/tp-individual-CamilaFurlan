@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 import Button from "../components/Button";
-import GigCard from "../components/GigCard";
+import MiGigCard from "../components/MiGigCard";
 
 import { api } from "../services/api";
 
@@ -12,6 +12,7 @@ function MisGigs() {
     const navigate = useNavigate();
 
     const usuarioId = localStorage.getItem("usuarioId");
+    
 
     const [gigs, setGigs] = useState([]);
 
@@ -34,6 +35,42 @@ function MisGigs() {
             console.error(error);
 
         }
+
+    }
+
+    async function eliminarGig(gig) {
+
+        if (!confirm(`¿Eliminar "${gig.nombre}"?`)) {
+
+            return;
+
+        }
+
+        try {
+
+            await api.eliminarGig(gig.id);
+
+            cargarGigs();
+
+        } catch (error) {
+
+            alert(error.message);
+
+        }
+
+    }
+
+    function editarGig(gig) {
+
+        navigate("/nuevo-gig", {
+
+            state: {
+
+                gig
+
+            }
+
+        });
 
     }
 
@@ -83,11 +120,15 @@ function MisGigs() {
 
                 gigs.map(gig => (
 
-                    <GigCard
+                    <MiGigCard
 
                         key={gig.id}
 
                         gig={gig}
+
+                        onEditar={editarGig}
+
+                        onEliminar={eliminarGig}
 
                     />
 

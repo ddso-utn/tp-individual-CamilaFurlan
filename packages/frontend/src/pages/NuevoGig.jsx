@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import Header from "../components/Header";
 import Button from "../components/Button";
@@ -7,25 +7,30 @@ import Button from "../components/Button";
 import { api } from "../services/api";
 
 function NuevoGig() {
-
+    
     const navigate = useNavigate();
+    const location = useLocation();
+    const gig = location.state?.gig;
+    const editando = !!gig;
 
     const usuarioId = localStorage.getItem("usuarioId");
 
     const [categorias, setCategorias] = useState([]);
 
-    const [nombre, setNombre] = useState("");
-    const [descripcion, setDescripcion] = useState("");
-    const [categoriaId, setCategoriaId] = useState("");
+    const [nombre, setNombre] = useState(gig?.nombre || "");
+    const [descripcion, setDescripcion] = useState(gig?.descripcion || "");
+    const [categoriaId, setCategoriaId] = useState(gig?.categoria?.id || "");
 
-    const [paquetes, setPaquetes] = useState([
-        {
-            nombre: "",
-            descripcion: "",
-            precio: "",
-            diasEntrega: ""
-        }
-    ]);
+    const [paquetes, setPaquetes] = useState(
+        gig?.paquetes || [
+            {
+                nombre: "",
+                descripcion: "",
+                precio: "",
+                diasEntrega: ""
+            }
+        ]
+    );
 
     useEffect(() => {
 
@@ -75,21 +80,37 @@ function NuevoGig() {
 
     async function guardar() {
 
+        const payload = {
+
+            vendedorId: localStorage.getItem("usuarioId"),
+
+            categoriaId,
+
+            nombre,
+
+            descripcion,
+
+            paquetes
+
+        };
+
         try {
 
-            await api.crearGig({
+            if (editando) {
 
-                vendedorId: usuarioId,
+                await api.actualizarGig(
 
-                categoriaId,
+                    gig.id,
 
-                nombre,
+                    payload
 
-                descripcion,
+                );
 
-                paquetes
+            } else {
 
-            });
+                await api.crearGig(payload);
+
+            }
 
             navigate("/mis-gigs");
 
@@ -107,9 +128,13 @@ function NuevoGig() {
 
             <Header
 
-                titulo="Nuevo Gig"
+                titulo={editando ? "Editar Gig" : "Nuevo Gig"}
 
-                subtitulo="Publicá un nuevo servicio."
+                subtitulo={
+                    editando
+                        ? "Actualizá la información de tu servicio."
+                        : "Publicá un nuevo servicio."
+                }
 
             />
 
@@ -337,14 +362,12 @@ function NuevoGig() {
 
             <div className="detail-footer">
 
-                <Button
-
-                    onClick={guardar}
-
-                >
-
-                    Publicar Gig
-
+                <Button onClick={guardar}>
+                    {
+                        editando
+                            ? "Guardar Cambios"
+                            : "Publicar Gig"
+                    }
                 </Button>
 
             </div>

@@ -107,6 +107,17 @@ export const api = {
             method: "POST",
             body: JSON.stringify(payload)
         }),
+        
+    actualizarGig: (gigId, payload) =>
+        request(`/gigs/${gigId}`, {
+            method: "PUT",
+            body: JSON.stringify(payload)
+        }),
+
+    eliminarGig: (gigId) =>
+        request(`/gigs/${gigId}`, {
+            method: "DELETE"
+        }),
 
     // ==========================
     // PEDIDOS

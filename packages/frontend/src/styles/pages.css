@@ -97,7 +97,6 @@
     align-items:flex-end;
     z-index:1000;
 }
-
 .chat-modal{
     width:100%;
     max-width:480px;
@@ -107,8 +106,9 @@
     padding:24px;
     display:flex;
     flex-direction:column;
-}
+    overflow:hidden;
 
+}
 .modal-header{
     display:flex;
     justify-content:space-between;
